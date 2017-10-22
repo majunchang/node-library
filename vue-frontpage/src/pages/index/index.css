@@ -1,0 +1,14 @@
+.index-title{
+  font-size: 36px;
+  display: inline-block;
+  width: 60%;
+  height: 100%;
+  /* background: red; */
+  text-align: center;
+  line-height: 75px;
+}
+
+.addBook{
+  padding-left: 5px;
+  text-align: left;
+}
