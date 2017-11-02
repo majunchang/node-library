@@ -1,7 +1,6 @@
 // 引入操作user的数据库model
 import {user} from '../models'
 
-var assert = require('assert');
 //声明处理错误的函数
 // function handleErr(err) {
 //     if (err) {
@@ -41,10 +40,10 @@ export function register(req, res, next) {
 }
 
 export function login(req, res, next) {
-    var name = req.body.username;
+    var name = JSON.parse(req.body).name;
     user
         .findOne({
-            name: req.body.username
+            name: name
         }).then(result => {
         if (result) {
             return res.json({

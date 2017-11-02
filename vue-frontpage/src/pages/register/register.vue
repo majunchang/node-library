@@ -81,7 +81,7 @@
           password: this.newPassword,
           username: this.newUserName
         }
-        axios.get(`${this.$url}/register`, {
+        axios.get(`/proxy/${this.$url}/register`, {
           params: obj
         }).then((res) => {
           if (res.data.code === 0) {

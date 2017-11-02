@@ -21,10 +21,10 @@ export default (req, res, next) => {
 
     // 数据接收完毕之后 触发end时间
     req.on('end',()=>{
-        console.log('liuyifei');
+        // console.log('liuyifei');
         // 将拼接字符串类型的data  转化为了对象
-        req.body = queryString.parse(data);
-        console.log(req.body);
+        req.body = data;
+        // console.log(req.body);
         next();
     })
 }

@@ -438,12 +438,12 @@
         <div class="page-sidebar md-shadow-z-2-i  navbar-collapse collapse">
           <ul class="page-sidebar-menu " data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">
             <li class="start active " @click='goIndex'>
-              <a href="javascript:;">
+              <a href="javascript:;" >
                 <i class="icon-home"></i>
                 <span class="title">主页</span>
               </a>
             </li>
-            <li>
+            <li @click='goAddBook'>
               <a href="javascript:;">
                 <i class="fa fa-book" aria-hidden="true"></i>
                 <span class="title addBook">添加书籍</span>
@@ -456,8 +456,8 @@
                 <span class="arrow "></span>
               </a>
               <ul class="sub-menu">
-                <li>
-                  <a href="ecommerce_index.html">
+                <li @click='libraryOverView'>
+                  <a href="javascript:;">
                     <i class="icon-home"></i>
                     藏书总览</a>
                 </li>
@@ -568,14 +568,32 @@
 
     },
     mounted() {
-
+      jQuery(document).ready(function() {
+        Metronic.init(); // init metronic core componets
+        Layout.init(); // init layout
+        Demo.init(); // init demo features
+//      Index.init(); // init index page
+        Tasks.initDashboardWidget(); // init tash dashboard widget
+      });
     },
     computed: {},
     methods: {
       goIndex() {
         this.$router.push({
           path: '/index',
-          name: 'index'
+          name: 'dashboard'
+        })
+      },
+      goAddBook(){
+        this.$router.push({
+          path:'/addBook',
+          name:'addBook'
+        })
+      },
+      libraryOverView(){
+        this.$router.push({
+          path:'/libraryOverView',
+          name:'libraryOverView'
         })
       }
     }

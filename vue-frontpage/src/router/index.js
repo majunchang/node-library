@@ -10,6 +10,10 @@ import index from '../pages/index/index.vue'
 // 引入添加书籍的页面
 import dashboard from '../pages/dashboard/dashboard.vue'
 import addBook from '../pages/addBook/addBook.vue'
+// 引入藏书总览的页面
+import libraryOverView from '../pages/libraryOverView/libraryOverView.vue'
+// 引入更新书籍的页面
+import updateBook from '../pages/updateBook/updateBook.vue'
 
 Vue.use(Router)
 
@@ -45,6 +49,16 @@ var router = new Router({
           name: 'addBook',
           component: addBook
         },
+        {
+          path:'/libraryOverView',
+          name:'libraryOverView',
+          component:libraryOverView
+        },
+        {
+          path: '/updateBook/:id',
+          name: 'updateBook',
+          component: updateBook
+        }
       ]
     },
 

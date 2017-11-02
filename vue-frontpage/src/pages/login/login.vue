@@ -14,7 +14,8 @@
           <div class="title-three">The whole world is in your hand</div>
         </div>
         <form action="" id='loginForm'>
-          <input type="text" class='loginUserName' placeholder='请输入用户名' v-model='userName' name="name" minlength="2" maxlength='8' required>
+          <input type="text" class='loginUserName' placeholder='请输入用户名' v-model='userName' name="name" minlength="2"
+                 maxlength='8' required>
           <!--<div class="err-tips">{{ conmputeUserName(userName) }}</div>-->
           <input type="password" class='loginPassWord' placeholder='请输入密码' name="password" minlength="2" maxlength="8"
                  required v-model='passWord'>
@@ -59,7 +60,7 @@
             debug: true
           });
           $.validator.setDefaults({
-            submitHandler: function() {
+            submitHandler: function () {
 
             }
           });
@@ -82,18 +83,17 @@
           name: 'register'
         })
       },
-      showNotice(){
+      showNotice() {
         this.$Notice.success({
           title: '这是通知标题',
-          desc:  '这里是通知描述这里,是通知描述这里是通知描述这里,是通知描述这里,是通知描述这里是通知描述这里是通知描述'
+          desc: '这里是通知描述这里,是通知描述这里是通知描述这里,是通知描述这里,是通知描述这里是通知描述这里是通知描述'
         })
       },
       login() {
-        console.log('majunchang');
-        if($('.error').length){
+        if ($('.error').length) {
           return
         }
-
+        var _this = this;
         axios({
           method: 'post',
           url: '/proxy/fullStack/login',
@@ -103,16 +103,28 @@
           },
         })
           .then(function (res) {
-            console.log('majunchang');
-            console.log(res);
-//            if(res.code===0){
-//
-//            }
+            if (res.data.code === 0) {
+              _this.$Notice.success({
+                title: '登录通知',
+                desc: '恭喜您已经登录成功',
+                duration: 1
+              })
+              setTimeout(()=>{
+                _this.$router.push({
+                  path: '/index',
+                  name: 'index'
+                })
+              },1000)
+
+            } else {
+              _this.$Notice.error({
+                title: '登录通知',
+                desc: res.data.message,
+                duration: 1
+              })
+            }
           });
-//        this.$router.push({
-//          path:'/index',
-//          name:'index'
-//        })
+
       }
     }
   }

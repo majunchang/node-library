@@ -1,0 +1,24 @@
+/*
+分页样式
+ */
+ul.ivu-page {
+  margin-top: 30px;
+  float: right;
+  margin-right: 20px;
+  font-size: 12px;
+}
+
+span.expand-value {
+  line-height: 30px;
+}
+
+button.ivu-btn.ivu-btn-error.ivu-btn-long{
+  margin-bottom: 10px;
+}
+.ivu-modal-footer button+button {
+  /* margin-left: 8px; */
+  margin-bottom: 0;
+}
+.removeCancle{
+  margin-left: 0 !important;
+}

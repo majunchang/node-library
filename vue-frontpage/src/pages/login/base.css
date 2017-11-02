@@ -104,3 +104,17 @@ label.error {
   margin-bottom: 10px;
   display: inline-block;
 }
+
+.customSwal {
+  width: 257px !important;
+  height: 219px !important;
+  border-radius: initial;
+  box-shadow: 1px 1px 5px 5px rgba(0,0,0,.1);
+  opacity: 0.95;
+}
+
+.customSwal #swal2-content {
+  font-size: 14px !important;
+  font-weight: bold !important;
+  margin-top: -8px;
+}

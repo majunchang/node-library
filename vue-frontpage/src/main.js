@@ -13,14 +13,22 @@ import iView from 'iview'
 import 'iview/dist/styles/iview.css'
 // 引入3d轮播图组件
 import Carousel3d from 'vue-carousel-3d'
+// 引入sweetalert组件
 
-Vue.config.productionTip = false
-Vue.prototype.$url = '/fullStack'
-Vue.prototype.$routerStore = store
+import SwalModal from './plugins/swertAlert'
+import swal from 'vue-sweetalert'
 
 
 Vue.use(iView)
 Vue.use(Carousel3d)
+Vue.use(swal)
+
+
+Vue.config.productionTip = false
+Vue.prototype.$url = 'fullStack'
+Vue.prototype.$routerStore = store
+Vue.prototype.$SwalModal = SwalModal;
+
 
 /* eslint-disable no-new */
 new Vue({
@@ -28,6 +36,6 @@ new Vue({
   router,
   store,
   template: '<App/>',
-  components: { App }
+  components: {App}
 })
 
