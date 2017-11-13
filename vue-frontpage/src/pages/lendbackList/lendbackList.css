@@ -12,7 +12,7 @@ span.expand-value {
   line-height: 30px;
 }
 
-button.ivu-btn.ivu-btn-error.ivu-btn-long{
+button.ivu-btn.ivu-btn-success.ivu-btn-long{
   margin-bottom: 10px;
 }
 .ivu-modal-footer button+button {

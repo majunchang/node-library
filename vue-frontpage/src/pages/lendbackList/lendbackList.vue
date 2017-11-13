@@ -3,13 +3,26 @@
     <Table border :columns="columns5" :data="data5"></Table>
     <Page :total="totalNum" show-elevator show-total :current='current' :page-size='pageSize'
           @on-change='changePageNum'></Page>
+    <Modal v-model='ReturnModal' width="360">
+      <p slot="header" style="color:#f60;text-align:center">
+        <Icon type="information-circled"></Icon>
+        <span>还书确认</span>
+      </p>
+      <p>{{userName}}同学，你确定要归还<<{{ReturnBookName}}>>这本书吗</p>
+      <div slot="footer">
+        <Button type="success" long :loading="modal_loading" @click="confirmReturn">确定</Button>
+        <Button type="warning" class='removeCancle' long :loading="modal_loading" @click="cancelReturn">取消</Button>
+      </div>
+    </Modal>
   </div>
+
 </template>
 <script>
 
   // 引入扩展项
   import axios from 'axios';
   import {turntoDate} from '../../plugins/turnTime'
+  import {mapGetters} from 'vuex'
 
   export default {
     components: {},
@@ -57,7 +70,7 @@
                   },
                   on: {
                     click: () => {
-
+                      this.returnM(params.index)
                     }
                   }
                 }, '还书'),
@@ -68,7 +81,7 @@
                   },
                   on: {
                     click: () => {
-
+                      this.renewLendM(params.index)
                     }
                   }
                 }, '续借')
@@ -84,15 +97,30 @@
         modal_loading: false,
         totalNum: 9,
         page: 1,
+        // 还书弹框的一些数据
+        ReturnModal: false,
+        ReturnBookName: '',
+        returnId: '',
+        userName: this.$store.state.user
       }
     },
+    computed: {},
     mounted() {
       this.initTable();
+      if (!this.userName) {
+        this.userName = window.localStorage.getItem('user')
+      }
       var pageObj = {
         page: this.current,
         pageSize: this.pageSize,
+        user: this.userName
       }
-      this.getAllBooks(pageObj);
+      console.log(this.userName);
+      if(this.userName === 'manager'){
+        this.getManagerLendBook(pageObj)
+      }else {
+        this.getAllBooks(pageObj);
+      }
     },
     methods: {
       initTable() {
@@ -109,22 +137,57 @@
           method: 'get',
           params: pageObj,
         }).then((res) => {
-          if(res.data.code === 0){
+          if (res.data.code === 0) {
             var arr = res.data.result
-            if(res.data.totalCount == 0){
+            if (res.data.totalCount == 0) {
               this.data5 = [];
               this.totalNum = 0;
             }
-            if(arr.length == 0){
+            if (arr.length == 0) {
               var obj = {
                 page: --this.page,
                 pageSize: this.pageSize,
               }
-              this.getAllBooks(obj);
+              if(obj.page >= 1){
+                this.getAllBooks(obj);
+              }
               return
             }
 
-            arr.forEach((item,index)=>{
+            arr.forEach((item, index) => {
+              item.lendDate = turntoDate(new Date(item.lendDate).getTime())
+              item.ShouldReturnDate = turntoDate(new Date(item.ShouldReturnDate).getTime())
+            })
+            this.data5 = arr;
+            this.totalNum = res.data.totalCount;
+          }
+        })
+      },
+      getManagerLendBook(pageObj){
+        // 用不到user  对象中 删除这个key值
+
+        axios({
+          url: `/proxy/${this.$url}/ManagerlendBackList`,
+          method: 'get',
+          params: pageObj,
+        }).then((res) => {
+          if (res.data.code === 0) {
+            var arr = res.data.result
+            if (res.data.totalCount == 0) {
+              this.data5 = [];
+              this.totalNum = 0;
+            }
+            if (arr.length == 0) {
+              var obj = {
+                page: --this.page,
+                pageSize: this.pageSize,
+              }
+              if(obj.page >= 1){
+                this.getAllBooks(obj);
+              }
+              return
+            }
+            arr.forEach((item, index) => {
               item.lendDate = turntoDate(new Date(item.lendDate).getTime())
               item.ShouldReturnDate = turntoDate(new Date(item.ShouldReturnDate).getTime())
             })
@@ -139,57 +202,54 @@
         var pageObj = {
           page: page,
           pageSize: this.pageSize,
+          user: this.userName
         }
-        this.getAllBooks(pageObj);
+        if(this.userName === 'manager'){
+          this.getManagerLendBook(pageObj)
+        }else {
+          this.getAllBooks(pageObj);
+        }
       },
+      returnM(index) {
+        this.ReturnModal = true;
+        this.ReturnBookName = this.data5[index].bookName;
+        this.returnId = this.data5[index]._id;
+      },
+      renewLendM() {
 
-      show(index) {
-        this.updateModal = true;
-//        console.log(this.data5[index]);
-//        console.log(this.data5[index]._id);
-        this.updateId = this.data5[index]._id
-        this.updateBookName = this.data5[index].bookName
-//        this.$Modal.info({
-//          title: '书籍信息',
-//          content: `书名：${this.data5[index].bookName}<br>作者：${this.data5[index].authorName}<br>出版社：${this.data5[index].publishHouse}`
-//        })
       },
-      borrow(index) {
-        this.borrowModal = true;
-        this.borrowId = this.data5[index]._id
-        this.borrowBookName = this.data5[index].bookName
-        this.borrowBookCount = this.data5[index].bookCount
-      },
-      remove(index) {
-        this.RemoveModal = true;
-        this.removeId = this.data5[index]._id;
-//        this.data5.splice(index, 1);
-      },
-      confirmRemove() {
+      confirmReturn() {
         // 发送删除请求
         var removeObj = {
-          id: this.removeId
+          id: this.returnId,
+          bookName:this.ReturnBookName
         }
         axios({
-          url: `/proxy/${this.$url}/removeBook`,
+          url: `/proxy/${this.$url}/returnLendBook`,
           method: 'get',
           params: removeObj,
         }).then((res) => {
-          console.log(res);
           if (res.data.code === 0) {
-            this.RemoveModal = false;
-            this.$SwalModal.MaModal('删除书籍成功')
+            this.ReturnModal = false;
+            this.$SwalModal.MaModal('还书成功')
             var pageObj = {
-              page: this.page,
+              page: this.current,
               pageSize: this.pageSize,
+              user: this.userName
             }
-            this.getAllBooks(pageObj);
+            if(this.userName === 'manager'){
+              this.getManagerLendBook(pageObj)
+            }else {
+              this.getAllBooks(pageObj);
+            }
           }
         })
       },
-      cancelRemove() {
-        this.RemoveModal = false;
+      cancelReturn() {
+        this.ReturnModal = false;
       },
+
+
       confirmUpdate() {
         // 在这里发送更新请求
         this.$router.push({

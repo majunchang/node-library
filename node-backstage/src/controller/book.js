@@ -118,6 +118,7 @@ export function postUpdateBook(req, res, next) {
 
     book.findById(bookId)
         .then(book => {
+            console.log(book);
             book.bookName = FormData.bookName,
                 book.authorName = FormData.authorName,
                 book.publishHouse = FormData.publishHouse,

@@ -94,6 +94,10 @@
         })
       },
       login() {
+        if(!this.userName || !this.passWord){
+          console.log('majnchang');
+          return;
+        }
         if ($('.error').length) {
           return
         }

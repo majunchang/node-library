@@ -413,8 +413,8 @@
                     <a href="extra_lock.html">
                       <i class="icon-lock"></i> Lock Screen </a>
                   </li>
-                  <li>
-                    <a href="login.html">
+                  <li @click='goLogout'>
+                    <a href="javascript:;">
                       <i class="icon-key"></i> Log Out </a>
                   </li>
                 </ul>
@@ -606,6 +606,12 @@
         this.$router.push({
           path:'/lengbackList',
           name:'lengbackList'
+        })
+      },
+      goLogout(){
+        this.$router.push({
+          path: '/login',
+          name: 'login'
         })
       }
     }
