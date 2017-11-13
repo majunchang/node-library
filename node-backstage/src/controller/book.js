@@ -174,3 +174,25 @@ export function removeBook(req, res, next) {
     })
 
 }
+
+export function  getBorrowBook(req,res,next) {
+    let {bookId} = req.query;
+
+    book.findById(bookId)
+        .then((result)=>{
+            res.json({
+                code: 0,
+                result: result
+            })
+        })
+        .catch((err)=>{
+            if(err){
+                res.json({
+                    code: 500,
+                    message: '获取借书信息失败'
+                })
+                console.log(err);
+                return
+            }
+        })
+}

@@ -12,7 +12,12 @@ router.get(url+'/getAllBook',bookController.getAllBook)
 router.get(url+'/updateBook',bookController.getUpdateBook)
 // 将前端修改后的数据传给后台
 router.post(url+'/updateBook',bookController.postUpdateBook)
+
+// 将用户借的书籍信息 返回给用户
+router.get(url+'/borrowBook',bookController.getBorrowBook)
+
 // 删除书籍
 router.get(url+'/removeBook',bookController.removeBook)
+
 
 export default router

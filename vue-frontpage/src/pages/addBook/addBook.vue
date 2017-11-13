@@ -96,11 +96,9 @@
     },
     methods: {
       handleSubmit(name) {
-        console.log(this);
         this.$refs[name].validate((valid) => {
           if (valid) {
             // 在这里将所有信息 传递给后台
-            console.log(this);
             this.postAddBook();
           } else {
             this.$Message.error('输入存在错误，无法进行提交');
@@ -108,11 +106,11 @@
         })
       },
       handleReset(name) {
-        console.log(this.formValidate);
+
         this.$refs[name].resetFields();
       },
       showTime() {
-        console.log(this.formValidate);
+
       },
       postAddBook() {
         var _this = this;

@@ -449,6 +449,12 @@
                 <span class="title addBook">添加书籍</span>
               </a>
             </li>
+            <li @click='golengbackList'>
+              <a href="javascript:;">
+                <i class="fa fa-book" aria-hidden="true"></i>
+                <span class="title addBook">还书总览</span>
+              </a>
+            </li>
             <li>
               <a href="javascript:;">
                 <i class="icon-basket"></i>
@@ -466,8 +472,8 @@
                     <i class="icon-basket"></i>
                     分类总览</a>
                 </li>
-                <li>
-                  <a href="ecommerce_orders_view.html">
+                <li @click='goAddBook'>
+                  <a href="javascript:;">
                     <i class="icon-tag"></i>
                     添加新书籍</a>
                 </li>
@@ -594,6 +600,12 @@
         this.$router.push({
           path:'/libraryOverView',
           name:'libraryOverView'
+        })
+      },
+      golengbackList(){
+        this.$router.push({
+          path:'/lengbackList',
+          name:'lengbackList'
         })
       }
     }

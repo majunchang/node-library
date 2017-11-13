@@ -10,6 +10,9 @@ import {user} from '../models'
 // }
 
 export function register(req, res, next) {
+
+    //  在这里注册 的时候 增加学号的注册  从20170001开始
+
     user
         .findOne({
             name: req.query.username

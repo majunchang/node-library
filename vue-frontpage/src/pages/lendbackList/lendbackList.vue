@@ -3,133 +3,42 @@
     <Table border :columns="columns5" :data="data5"></Table>
     <Page :total="totalNum" show-elevator show-total :current='current' :page-size='pageSize'
           @on-change='changePageNum'></Page>
-    <Modal v-model='updateModal'
-           title="更新提示框"
-           @on-ok="confirmUpdate"
-           @on-cancel="cancelUpdate">
-      <p>您确定要更新<<{{updateBookName}}>>这本书吗</p>
-    </Modal>
-    <Modal v-model='RemoveModal'
-           @on-ok="confirmRemove"
-           @on-cancel="cancelRemove" width="360">
-      <p slot="header" style="color:#f60;text-align:center">
-        <Icon type="information-circled"></Icon>
-        <span>删除确认</span>
-      </p>
-      <p>您确定要删除<<{{RemoveBookName}}>>这本书吗</p>
-      <div slot="footer">
-        <Button type="error" long :loading="modal_loading" @click="confirmRemove">删除</Button>
-        <Button type="ghost" class='removeCancle' long :loading="modal_loading" @click="cancelRemove">取消</Button>
-      </div>
-    </Modal>
-    <Modal v-model='borrowModal'
-           title="借书提示框"
-           @on-ok="confirmBorrow"
-           @on-cancel="cancelBorrow">
-      <!--在这里 使用vuex获取到当前登录用户-->
-      <p>您确定要借<<{{borrowBookName}}>>这本书吗</p>
-    </Modal>
   </div>
 </template>
 <script>
 
   // 引入扩展项
-  import expandLo from '../../components/expandLo/expandLo.vue'
   import axios from 'axios';
   import {turntoDate} from '../../plugins/turnTime'
 
   export default {
-    components: {expandLo},
+    components: {},
     data() {
       return {
         columns5: [
-          {
-            type: 'expand',
-            width: 50,
-            render: (h, params) => {
-              return h(expandLo, {
-                props: {
-                  row: params.row
-                }
-              })
-            }
-          },
           {
             title: '书名',
             key: 'bookName',
             sortable: true
           },
           {
-            title: '作者名',
-            key: 'authorName'
+            title: '借阅者姓名',
+            key: 'userName'
           },
           {
-            title: '出版日期',
-            key: 'date',
-            sortable: true,
-            filters: [
-              {
-                label: '大于25岁',
-                value: 1
-              },
-              {
-                label: '小于25岁',
-                value: 2
-              }
-            ],
-            filterMultiple: false,
-            filterMethod(value, row) {
-              if (value === 1) {
-                return row.age > 25;
-              } else if (value === 2) {
-                return row.age < 25;
-              }
-            }
+            title: '借书日期',
+            key: 'lendDate'
           },
           {
-            title: '出版社',
-            key: 'publishHouse',
+            title: '最迟还书日期',
+            key: 'ShouldReturnDate'
           },
           {
-            title: '书籍分类',
-            key: 'category',
-            filters: [
-              {
-                label: '中国文学',
-                value: '中国文学'
-              },
-              {
-                label: '数理化学',
-                value: '数理化学'
-              },
-              {
-                label: '政治法律',
-                value: '政治法律'
-              },
-              {
-                label: '经典著作',
-                value: '经典著作'
-              },
-              {
-                label: '医药卫生',
-                value: '医药卫生'
-              },
-              {
-                label: '计算机技术',
-                value: '计算机技术'
-              },
-              {
-                label: '财经管理',
-                value: '财经管理'
-              },
-            ],
-            filterMethod(value, row) {
-              return row.category.indexOf(value) > -1;
-            }
-          },
-          {
-            title: '剩余数量',
-            key: 'bookCount'
+            title: '书籍定价',
+            key: 'bookPrice'
+          }, {
+            title: '续借次数',
+            key: 'reNewTimes'
           },
           {
             title: '操作',
@@ -148,48 +57,24 @@
                   },
                   on: {
                     click: () => {
-                      this.borrow(params.index)
+
                     }
                   }
-                }, '借书'),
-              ])
-            }
-          },
-          {
-            title: '管理员操作',
-            key: 'AdminAction',
-            width: 150,
-            align: 'center',
-            render: (h, params) => {
-              return h('div', [
+                }, '还书'),
                 h('Button', {
                   props: {
                     type: 'primary',
                     size: 'small'
                   },
-                  style: {
-                    marginRight: '5px'
-                  },
                   on: {
                     click: () => {
-                      this.show(params.index)
+
                     }
                   }
-                }, '更新'),
-                h('Button', {
-                  props: {
-                    type: 'error',
-                    size: 'small'
-                  },
-                  on: {
-                    click: () => {
-                      this.remove(params.index)
-                    }
-                  }
-                }, '删除')
+                }, '续借')
               ])
             }
-          }
+          },
         ],
         data5: [],
         current: 1,
@@ -197,16 +82,8 @@
         updateModal: false,
         updateBookName: '',
         modal_loading: false,
-        totalNum: 0,
-        updateId: 0,
-        RemoveModal: false,
-        RemoveBookName:'',
+        totalNum: 9,
         page: 1,
-        // 借书弹框的一些数据
-        borrowModal: false,
-        borrowId: 0,
-        borrowBookName: '',
-        borrowBookCount: 0,
       }
     },
     mounted() {
@@ -225,6 +102,47 @@
 //            }
 //        })
       },
+      getAllBooks(pageObj) {
+        //  在这里发送请求
+        axios({
+          url: `/proxy/${this.$url}/lendBackList`,
+          method: 'get',
+          params: pageObj,
+        }).then((res) => {
+          if(res.data.code === 0){
+            var arr = res.data.result
+            if(res.data.totalCount == 0){
+              this.data5 = [];
+              this.totalNum = 0;
+            }
+            if(arr.length == 0){
+              var obj = {
+                page: --this.page,
+                pageSize: this.pageSize,
+              }
+              this.getAllBooks(obj);
+              return
+            }
+
+            arr.forEach((item,index)=>{
+              item.lendDate = turntoDate(new Date(item.lendDate).getTime())
+              item.ShouldReturnDate = turntoDate(new Date(item.ShouldReturnDate).getTime())
+            })
+            this.data5 = arr;
+            this.totalNum = res.data.totalCount;
+          }
+        })
+      },
+      changePageNum(page) {
+        // 改变页码的时候 重新进行变换
+        this.page = page;
+        var pageObj = {
+          page: page,
+          pageSize: this.pageSize,
+        }
+        this.getAllBooks(pageObj);
+      },
+
       show(index) {
         this.updateModal = true;
 //        console.log(this.data5[index]);
@@ -245,7 +163,6 @@
       remove(index) {
         this.RemoveModal = true;
         this.removeId = this.data5[index]._id;
-        this.RemoveBookName = this.data5[index].bookName;
 //        this.data5.splice(index, 1);
       },
       confirmRemove() {
@@ -272,49 +189,6 @@
       },
       cancelRemove() {
         this.RemoveModal = false;
-      },
-      getAllBooks(pageObj) {
-        //  在这里发送请求
-        axios({
-          url: `/proxy/${this.$url}/getAllBook`,
-          method: 'get',
-          params: pageObj,
-        }).then((res) => {
-          if (res.data.code === 0) {
-            var arr = res.data.result;
-            /*
-              在这里做一下限制  比如说删除的时候 导致本页数据出现空数组的情况
-              或者说 total直接为0的情况
-               */
-            if(res.data.totalCount == 0){
-              this.data5 = [];
-              this.totalNum = 0;
-            }
-            if(arr.length == 0){
-              var obj = {
-                page: --this.page,
-                pageSize: this.pageSize,
-              }
-              this.getAllBooks(obj);
-              return;
-            }
-
-            arr.forEach((item, index) => {
-              item.date = turntoDate(new Date(item.date).getTime());
-            })
-            this.data5 = res.data.result;
-            this.totalNum = res.data.totalNum;
-          }
-        })
-      },
-      changePageNum(page) {
-        // 改变页码的时候 重新进行变换
-        this.page = page;
-        var pageObj = {
-          page: page,
-          pageSize: this.pageSize,
-        }
-        this.getAllBooks(pageObj);
       },
       confirmUpdate() {
         // 在这里发送更新请求
@@ -343,7 +217,7 @@
 </script>
 
 <style scoped>
-  @import "libraryOverView.css";
+  @import "lendbackList.css";
 </style>
 
 

@@ -111,14 +111,12 @@
           params: obj
         })
           .then(function (res) {
-            console.log(res);
             if (res.data.code === 0) {
               _this.formValidate = res.data.result
             }
           });
       },
       handleSubmit(name) {
-        console.log(this);
         this.$refs[name].validate((valid) => {
           if (valid) {
             // 在这里将所有信息 传递给后台
@@ -129,7 +127,6 @@
         })
       },
       handleReset(name) {
-        console.log(this.formValidate);
         this.$refs[name].resetFields();
       },
       showTime() {

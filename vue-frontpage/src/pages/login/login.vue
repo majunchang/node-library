@@ -34,6 +34,7 @@
 <script>
   import axios from 'axios';
   import validation from '../../../static/plugin/jquery.validate'
+  import {mapMutations} from 'vuex'
 
   export default {
     props: {},
@@ -53,6 +54,9 @@
     },
     computed: {},
     methods: {
+      ...mapMutations({
+        'setUser': 'SET_USER'
+      }),
       validate() {
 //        $("#loginForm").validate();
         $().ready(function () {
@@ -109,13 +113,14 @@
                 desc: '恭喜您已经登录成功',
                 duration: 1
               })
-              setTimeout(()=>{
+              setTimeout(() => {
                 _this.$router.push({
                   path: '/index',
                   name: 'index'
                 })
-              },1000)
-
+              }, 1000)
+              // 在这里将用户存入vuex
+              _this.setUser(_this.userName);
             } else {
               _this.$Notice.error({
                 title: '登录通知',

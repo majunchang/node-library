@@ -14,6 +14,11 @@ import addBook from '../pages/addBook/addBook.vue'
 import libraryOverView from '../pages/libraryOverView/libraryOverView.vue'
 // 引入更新书籍的页面
 import updateBook from '../pages/updateBook/updateBook.vue'
+// 引入借书的页面
+import lendBook from '../pages/lendBook/lendBook.vue'
+// 引入借还书的列表页面
+import lengbackList from '../pages/lendbackList/lendbackList.vue'
+
 
 Vue.use(Router)
 
@@ -58,6 +63,16 @@ var router = new Router({
           path: '/updateBook/:id',
           name: 'updateBook',
           component: updateBook
+        },
+        {
+          path: '/lendBook/:id',
+          name: 'lendBook',
+          component: lendBook
+        },
+        {
+          path: 'lengbackList',
+          name: 'lengbackList',
+          component: lengbackList
         }
       ]
     },
