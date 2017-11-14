@@ -11,5 +11,6 @@ router.get(url+'/lendBackList',lendBookController.getlendBackList)
 router.get(url+'/ManagerlendBackList',lendBookController.getManagerlendBackList)
 // 读者归还书籍
 router.get(url+'/returnLendBook',lendBookController.returnLendBook)
-
+// 读者续借书籍
+router.get(url+'/renewLendBook',lendBookController.renewLendBook)
 export  default router;

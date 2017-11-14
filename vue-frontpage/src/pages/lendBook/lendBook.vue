@@ -99,8 +99,8 @@
         }
         var startTime = this.handleDate('d ', 0, now);
         var cutoffTime = this.handleDate('m ', 2, now1);
-        console.log(startTime);
-        console.log(cutoffTime);
+//        console.log(startTime);
+//        console.log(cutoffTime);
         var renew = 1;
         this.formValidate.startTime = startTime;
         this.formValidate.cutoffTime = cutoffTime;
@@ -182,7 +182,7 @@
             break;
           }
           default   : {
-            date.setDate(d.getDate() + number);
+            date.setDate(date.getDate() + number);
             return date;
             break;
           }

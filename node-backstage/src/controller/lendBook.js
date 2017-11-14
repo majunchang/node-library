@@ -200,3 +200,32 @@ export function returnLendBook(req, res, next) {
             }
         })
 }
+
+
+// 用户续借
+export function renewLendBook(req,res,next) {
+    let { id,startTime,cutoffTime } = req.query;
+    lendBook.findById(id)
+        .then((book)=>{
+            book.reNewTimes = book.reNewTimes - 1;
+            book.lendDate = startTime;
+            book.ShouldReturnDate = cutoffTime;
+            return book.save()
+        })
+        .then((docs)=>{
+            res.json({
+                code:0,
+                message:'续借成功'
+            })
+        })
+        .catch((err)=>{
+            if(err){
+                res.json({
+                    code:500,
+                    message:'续借失败'
+                })
+                console.log(err);
+                return
+            }
+        })
+}

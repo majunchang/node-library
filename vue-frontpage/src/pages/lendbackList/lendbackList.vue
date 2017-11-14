@@ -14,6 +14,18 @@
         <Button type="warning" class='removeCancle' long :loading="modal_loading" @click="cancelReturn">取消</Button>
       </div>
     </Modal>
+    <!-- 续借弹框 -->
+    <Modal v-model='RenewModal' width="360">
+      <p slot="header" style="color:#f60;text-align:center">
+        <Icon type="information-circled"></Icon>
+        <span>还书确认</span>
+      </p>
+      <p>{{userName}}同学，你确定要续借<<{{RenewBookName}}>>这本书吗</p>
+      <div slot="footer">
+        <Button type="success" long :loading="modal_loading" @click="confirmRenew">确定</Button>
+        <Button type="warning" class='removeCancle' long :loading="modal_loading" @click="cancelRenew">取消</Button>
+      </div>
+    </Modal>
   </div>
 
 </template>
@@ -101,7 +113,11 @@
         ReturnModal: false,
         ReturnBookName: '',
         returnId: '',
-        userName: this.$store.state.user
+        userName: this.$store.state.user,
+        // 续借弹框的一些数据
+        RenewModal: false,
+        RenewBookName: '',
+        RenewId: '',
       }
     },
     computed: {},
@@ -115,10 +131,10 @@
         pageSize: this.pageSize,
         user: this.userName
       }
-      console.log(this.userName);
-      if(this.userName === 'manager'){
+      // console.log(this.userName);
+      if (this.userName === 'manager') {
         this.getManagerLendBook(pageObj)
-      }else {
+      } else {
         this.getAllBooks(pageObj);
       }
     },
@@ -148,7 +164,7 @@
                 page: --this.page,
                 pageSize: this.pageSize,
               }
-              if(obj.page >= 1){
+              if (obj.page >= 1) {
                 this.getAllBooks(obj);
               }
               return
@@ -163,7 +179,7 @@
           }
         })
       },
-      getManagerLendBook(pageObj){
+      getManagerLendBook(pageObj) {
         // 用不到user  对象中 删除这个key值
 
         axios({
@@ -182,7 +198,7 @@
                 page: --this.page,
                 pageSize: this.pageSize,
               }
-              if(obj.page >= 1){
+              if (obj.page >= 1) {
                 this.getAllBooks(obj);
               }
               return
@@ -204,9 +220,9 @@
           pageSize: this.pageSize,
           user: this.userName
         }
-        if(this.userName === 'manager'){
+        if (this.userName === 'manager') {
           this.getManagerLendBook(pageObj)
-        }else {
+        } else {
           this.getAllBooks(pageObj);
         }
       },
@@ -215,14 +231,11 @@
         this.ReturnBookName = this.data5[index].bookName;
         this.returnId = this.data5[index]._id;
       },
-      renewLendM() {
-
-      },
       confirmReturn() {
         // 发送删除请求
         var removeObj = {
           id: this.returnId,
-          bookName:this.ReturnBookName
+          bookName: this.ReturnBookName
         }
         axios({
           url: `/proxy/${this.$url}/returnLendBook`,
@@ -237,9 +250,9 @@
               pageSize: this.pageSize,
               user: this.userName
             }
-            if(this.userName === 'manager'){
+            if (this.userName === 'manager') {
               this.getManagerLendBook(pageObj)
-            }else {
+            } else {
               this.getAllBooks(pageObj);
             }
           }
@@ -248,29 +261,83 @@
       cancelReturn() {
         this.ReturnModal = false;
       },
-
-
-      confirmUpdate() {
-        // 在这里发送更新请求
-        this.$router.push({
-          name: 'updateBook',
-          params: {id: this.updateId}
-        })
+      renewLendM(index) {
+        this.RenewModal = true;
+        this.RenewBookName = this.data5[index].bookName;
+        this.RenewId = this.data5[index]._id;
       },
-      cancelUpdate() {
+      confirmRenew() {
 
-      },
-      confirmBorrow() {
-        if (this.borrowBookCount < 1) {
-          this.$SwalModal.MaModal('借书成功', 'error')
+        // 重新计算一下 借书时间和还书时间
+        var now = new Date();
+        var now1 = new Date();
+        var startTime = this.handleDate('d ',0,now);
+        var cutoffTime = this.handleDate('m ',2,now1);
+        // 以id作为标识就可以了
+        var renewobj = {
+          id: this.RenewId,
+          startTime:startTime,
+          cutoffTime:cutoffTime,
         }
-        this.$router.push({
-          name: 'lendBook',
-          params: {id: this.borrowId}
+        axios({
+          url: `/proxy/${this.$url}/renewLendBook`,
+          method: 'get',
+          params: renewobj
+        }).then((res) => {
+          console.log(res);
         })
       },
-      cancelBorrow() {
-
+      cancelRenew() {
+        this.RenewModal = false
+      },
+      handleDate(interval, number, date){
+        switch (interval) {
+          case   "y "   : {
+            date.setFullYear(date.getFullYear() + number);
+            return date;
+            break;
+          }
+          case   "q "   : {
+            date.setMonth(date.getMonth() + number * 3);
+            return date;
+            break;
+          }
+          case   "m "   : {
+            date.setMonth(date.getMonth() + number);
+            return date;
+            break;
+          }
+          case   "w "   : {
+            date.setDate(date.getDate() + number * 7);
+            return date;
+            break;
+          }
+          case   "d "   : {
+            date.setDate(date.getDate() + number);
+            return date;
+            break;
+          }
+          case   "h "   : {
+            date.setHours(date.getHours() + number);
+            return date;
+            break;
+          }
+          case   "m "   : {
+            date.setMinutes(date.getMinutes() + number);
+            return date;
+            break;
+          }
+          case   "s "   : {
+            date.setSeconds(date.getSeconds() + number);
+            return date;
+            break;
+          }
+          default   : {
+            date.setDate(date.getDate() + number);
+            return date;
+            break;
+          }
+        }
       }
     }
   }
