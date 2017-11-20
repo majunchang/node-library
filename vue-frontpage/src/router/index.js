@@ -6,6 +6,9 @@ import Router from 'vue-router'
 import login from '../pages/login/login.vue'
 import register from '../pages/register/register'
 import index from '../pages/index/index.vue'
+// 引入忘记密码 组件
+import forgetPassWord from '../pages/forgetPassword/forgetPassword.vue'
+
 
 // 引入添加书籍的页面
 import dashboard from '../pages/dashboard/dashboard.vue'
@@ -40,6 +43,11 @@ var router = new Router({
       component: register
     },
     {
+      path: '/forgetPassWord',
+      name: 'forgetPassWord',
+      component: forgetPassWord
+    },
+    {
       path: '/index',
       name: 'index',
       component: index,
@@ -55,9 +63,9 @@ var router = new Router({
           component: addBook
         },
         {
-          path:'/libraryOverView',
-          name:'libraryOverView',
-          component:libraryOverView
+          path: '/libraryOverView',
+          name: 'libraryOverView',
+          component: libraryOverView
         },
         {
           path: '/updateBook/:id',

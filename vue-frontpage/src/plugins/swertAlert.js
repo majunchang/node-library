@@ -7,6 +7,7 @@ export default {
       Vue.prototype.$swal.close();
       return;
     }
+    // 五中  success error warning info question
     type = type ? type : "success";
     text = text ? text : "操作成功";
     Vue.prototype.$swal({

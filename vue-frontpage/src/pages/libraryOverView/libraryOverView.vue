@@ -193,7 +193,7 @@
         ],
         data5: [],
         current: 1,
-        pageSize: 3,
+        pageSize: 8,
         updateModal: false,
         updateBookName: '',
         modal_loading: false,

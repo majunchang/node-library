@@ -13,12 +13,14 @@
     "axios": "^0.16.2",
     "iview": "^2.5.1",
     "jquery": "^3.2.1",
+    "muse-ui": "^2.1.0",
     "sweetalert": "^2.0.8",
     "sweetalert2": "^6.11.4",
     "vue": "^2.3.3",
     "vue-carousel-3d": "^0.1.18",
     "vue-router": "^2.6.0",
     "vue-sweetalert": "^0.1.18",
+    "vue-template-compiler": "^2.5.3",
     "vuex": "^3.0.0"
   },
   "devDependencies": {

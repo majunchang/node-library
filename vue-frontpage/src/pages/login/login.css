@@ -54,6 +54,30 @@
   margin-bottom: 15px;
 }
 
+.check-box{
+  position: relative;
+}
+.identifyCode{
+  border: 1px #aaa solid;
+  border-radius: 4px;
+  background: 0 0;
+  text-align: left;
+  font-size: 20px;
+  width: 350px;
+  height: 50px;
+  line-height: 50px;
+  padding: 0 20px;
+  outline: none;
+  margin-bottom: 15px;
+  display: inline-block;
+}
+
+#checking{
+  display: inline-block;
+  position: absolute;
+  top: 10px;
+}
+
 .loginSubmit{
   width: 480px;
   height: 50px;

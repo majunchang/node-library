@@ -11,6 +11,10 @@ import axios from 'axios';
 // 引入iview  ui框架
 import iView from 'iview'
 import 'iview/dist/styles/iview.css'
+// 引入muse-ui  框架
+import museUi from 'muse-ui'
+import 'muse-ui/dist/muse-ui.css'
+
 // 引入3d轮播图组件
 import Carousel3d from 'vue-carousel-3d'
 // 引入sweetalert组件
@@ -22,6 +26,7 @@ import swal from 'vue-sweetalert'
 Vue.use(iView)
 Vue.use(Carousel3d)
 Vue.use(swal)
+Vue.use(museUi)
 
 
 Vue.config.productionTip = false

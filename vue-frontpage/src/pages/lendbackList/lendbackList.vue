@@ -103,7 +103,7 @@
         ],
         data5: [],
         current: 1,
-        pageSize: 3,
+        pageSize: 8,
         updateModal: false,
         updateBookName: '',
         modal_loading: false,
@@ -284,7 +284,21 @@
           method: 'get',
           params: renewobj
         }).then((res) => {
-          console.log(res);
+          if(res.data.code === 0){
+            this.RenewModal = false
+            this.$SwalModal.MaModal('续借成功')
+            // 调用一下 获取借书的接口
+            var pageObj = {
+              page: this.current,
+              pageSize: this.pageSize,
+              user: this.userName
+            }
+            if (this.userName === 'manager') {
+              this.getManagerLendBook(pageObj)
+            } else {
+              this.getAllBooks(pageObj);
+            }
+          }
         })
       },
       cancelRenew() {
