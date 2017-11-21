@@ -20,7 +20,7 @@
       <div class="page page2">
         <div class="contain">
           <div class="content">
-            <h1 class='firstStepTitle'>第一步 &nbsp;&nbsp;&nbsp; 输入您的用户名</h1>
+            <h1 class='firstStepTitle'>第一步 &nbsp;&nbsp;&nbsp; 输入您的用户名和可用邮箱</h1>
             <mu-text-field
               hintTextClass='firstStepHint'
               inputClass='firstStepInput'
@@ -37,8 +37,8 @@
               @blur='validateInput("mailBox")'
               :errorText='mailBoxError'/>
             <br/>
-            <mu-raised-button class="firstStepBtn" backgroundColor="#00a2de"
-                              @click='firstStepNext' label="下一步"/>
+            <mu-raised-button class="firstStepBtn" :disabled='SendIng' :backgroundColor="bgc"
+                              @click='firstStepNext' :label="mailLabel"/>
           </div>
         </div>
       </div>
@@ -46,28 +46,35 @@
       <div class="page page3">
         <div class="contain">
           <div class="content">
-            <h1 class='secondStepTitle'>第二步 &nbsp;&nbsp;&nbsp; 设置邮箱和新密码</h1>
-            <p class='boxModel'>
-              盒子型号：<span class='boxMS'>XXXX</span>
-              小团队版: <span>V1.0.0</span>
-            </p>
+            <h1 class='secondStepTitle'>第二步 &nbsp;&nbsp;&nbsp; 输入邮箱验证码并设置新密码</h1>
+
             <p class='boxDesc'>
               超级管理员是本系统中权限最大的管理员，能够进入盒子后台对盒子的软件升级,使用情况，用户以及访问控制，网络配置进行操作。请您牢记您的超级管理员账号。超级管理员账号和盒子绑定。每个盒子仅有唯一的超级管理员。
             </p>
             <mu-text-field
               hintTextClass='secondStepHint'
               inputClass='secondStepInput'
-              hintText="请输入邮箱的验证码"/>
+              hintText="请输入邮箱的验证码"
+              v-model='mailCheckNum'
+              @blur='validateInput("mailCheckNum")'
+              :errorText='mailCheckNumError'
+            />
             <br/>
             <mu-text-field
               hintTextClass='secondStepHint'
               inputClass='secondStepInput'
-              hintText="请输入新密码"/>
+              hintText="请输入新密码"
+              v-model='newPas'
+              @blur='validateInput("newPas")'
+              :errorText='newPasError'/>
             <br/>
             <mu-text-field
               hintTextClass='secondStepHint'
               inputClass='secondStepInput'
-              hintText="请确认新密码"/>
+              hintText="请确认新密码"
+              v-model='confirmNewPas'
+              @blur='validateInput("confirmNewPas")'
+              :errorText='confirmNewPasError'/>
             <br/>
             <mu-raised-button class="firstStepBtn secondStepBtn" backgroundColor="#273840"
                               @click='secondStepPrev' label="上一步"/>
@@ -119,7 +126,16 @@
         mailBox: '',
         userNameError: '',
         mailBoxError: '',
-
+        SendIng: false,
+        bgc: '#00a2de',
+        mailLabel: '发送邮件',
+        // 注册的第二步
+        mailCheckNum: '',
+        mailCheckNumError: '',
+        newPas: '',
+        newPasError: '',
+        confirmNewPas: '',
+        confirmNewPasError: ''
       }
     },
     created() {
@@ -149,7 +165,6 @@
     computed: {},
     methods: {
       validateInput(str) {
-
         if (str === 'userName') {
           var userName = this.prevUserName;
           // 检测为空
@@ -169,6 +184,27 @@
           }
           return
         }
+        else if (str == 'mailCheckNum') {
+          this.mailCheckNumError = '';
+          if (this.mailCheckNum.trim() === '') {
+            this.mailCheckNumError = '验证码不能为空';
+            return
+          }
+        }
+        else if (str == 'newPas') {
+          this.newPasError = '';
+          if (this.newPas.trim() === '') {
+            this.newPasError = '新密码不能为空';
+            return
+          }
+        }
+        else if (str == 'confirmNewPas') {
+          this.confirmNewPasError = '';
+          if (this.confirmNewPas.trim() === '') {
+            this.confirmNewPasError = '确认密码不能为空';
+            return
+          }
+        }
       },
       beginRegister() {
         //  1 首先在这里调用接口
@@ -176,11 +212,18 @@
         this.runPage.next();
       },
       firstStepNext() {
-
+        // 验证是否为空
+        if (!this.prevUserName || !this.mailBox) {
+          this.$SwalModal.MaModal('请正确输入', 'warning')
+          return
+        }
+        //  验证是否报错
         if (this.userNameError && this.mailBoxError) {
           return
         }
         //  将用户输入的用户名和邮箱 发送给后台
+        this.SendIng = true
+        this.bgc = 'gray'
         axios({
           url: '/proxy/fullStack/SendEmail',
           method: 'post',
@@ -190,18 +233,66 @@
           },
         })
           .then((res) => {
-            console.log(res);
+            if (res.data.code === 0) {
+              this.$SwalModal.MaModal('邮件已经发送成功，请注意查收')
+              var time = 60
+              var timer = setInterval(() => {
+                time--;
+                this.mailLabel = `${time}秒后重新发送`
+                if (time === 0) {
+                  this.SendIng = false
+                  clearInterval(timer)
+                  this.mailLabel = '重新发送'
+                  this.bgc = '#00a2de'
+                }
+              }, 1000)
+              this.runPage.next();
+            }
+            else {
+              this.$SwalModal.MaModal('邮件发送失败', 'error')
+            }
           })
-        this.runPage.next();
+
       },
       secondStepPrev() {
         this.runPage.prev();
       },
       secondStepNext() {
-        this.runPage.next();
+        //
+        if (this.newPas.trim() != this.confirmNewPas.trim()) {
+          this.$Notice.error({
+            title: '通知',
+            desc: '两次密码输入不一致，请检查',
+            duration: 1
+          })
+          return
+        }
+        axios({
+          url: '/proxy/fullStack/changePas',
+          method: 'post',
+          data: {
+            userName: this.prevUserName.trim(),
+            mailCheckNum: this.mailCheckNum.trim(),
+            newPas: this.newPas.trim()
+          },
+        })
+          .then((res) => {
+            console.log(res);
+            if (res.data.code === 0) {
+              this.runPage.next();
+            }
+            else {
+              this.$SwalModal.MaModal('邮件发送失败', 'error')
+            }
+          })
       },
       thirdStepNext() {
-        this.runPage.next();
+//        this.runPage.next();
+        // 回到登录页
+        this.$router.push({
+          name:'login',
+          path:'/login'
+        })
       }
     }
   }
