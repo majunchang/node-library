@@ -518,7 +518,7 @@
                 <span class="arrow "></span>
               </a>
               <ul class="sub-menu">
-                <li>
+                <li  @click='goCurrnetHot'>
                   <a href="javascript:;">
                     当前热门书籍</a>
                 </li>
@@ -612,6 +612,12 @@
         this.$router.push({
           path: '/login',
           name: 'login'
+        })
+      },
+      goCurrnetHot(){
+        this.$router.push({
+          path:'/currentHot',
+          name:'currentHot'
         })
       }
     }

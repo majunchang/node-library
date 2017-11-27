@@ -21,6 +21,8 @@ import updateBook from '../pages/updateBook/updateBook.vue'
 import lendBook from '../pages/lendBook/lendBook.vue'
 // 引入借还书的列表页面
 import lengbackList from '../pages/lendbackList/lendbackList.vue'
+// 引入当前热门书籍
+import currentHot from '../pages/currentHot/currentHot.vue'
 
 
 Vue.use(Router)
@@ -81,6 +83,11 @@ var router = new Router({
           path: 'lengbackList',
           name: 'lengbackList',
           component: lengbackList
+        },
+        {
+          path:'currentHot',
+          name:'currentHot',
+          component:currentHot
         }
       ]
     },

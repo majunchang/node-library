@@ -203,29 +203,55 @@ export function returnLendBook(req, res, next) {
 
 
 // 用户续借
-export function renewLendBook(req,res,next) {
-    let { id,startTime,cutoffTime } = req.query;
+export function renewLendBook(req, res, next) {
+    let {id, startTime, cutoffTime} = req.query;
     lendBook.findById(id)
-        .then((book)=>{
+        .then((book) => {
             book.reNewTimes = book.reNewTimes - 1;
             book.lendDate = startTime;
             book.ShouldReturnDate = cutoffTime;
             return book.save()
         })
-        .then((docs)=>{
+        .then((docs) => {
             res.json({
-                code:0,
-                message:'续借成功'
+                code: 0,
+                message: '续借成功'
             })
         })
-        .catch((err)=>{
-            if(err){
+        .catch((err) => {
+            if (err) {
                 res.json({
-                    code:500,
-                    message:'续借失败'
+                    code: 500,
+                    message: '续借失败'
                 })
                 console.log(err);
                 return
             }
         })
+}
+
+
+// 获取当前热门书籍
+export function getCurrentHot(req, res, next) {
+
+    lendBook.find()
+        .then((book) => {
+            if (book) {
+                res.json({
+                    code: 0,
+                    result: book,
+                    message: "成功返回"
+                })
+            }
+        })
+        .catch((err) => {
+            if (err) {
+                res.json({
+                    code:500,
+                    message:err,
+                    result:[]
+                })
+            }
+        })
+
 }

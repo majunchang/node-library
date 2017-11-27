@@ -1,5 +1,7 @@
 <template>
   <div class="page-content">
+    <input type="search" class='search-input' placeholder='请输入想要查询书籍的书名或者作者名' v-model='searchInput'
+           v-on:keyup='searchBooks'>
     <Table border :columns="columns5" :data="data5"></Table>
     <Page :total="totalNum" show-elevator show-total :current='current' :page-size='pageSize'
           @on-change='changePageNum'></Page>
@@ -200,15 +202,18 @@
         totalNum: 0,
         updateId: 0,
         RemoveModal: false,
-        RemoveBookName:'',
+        RemoveBookName: '',
         page: 1,
         // 借书弹框的一些数据
         borrowModal: false,
         borrowId: 0,
         borrowBookName: '',
         borrowBookCount: 0,
+        // 智能查询
+        searchInput: ''
       }
     },
+    computed: {},
     mounted() {
       this.initTable();
       var pageObj = {
@@ -286,11 +291,11 @@
               在这里做一下限制  比如说删除的时候 导致本页数据出现空数组的情况
               或者说 total直接为0的情况
                */
-            if(res.data.totalCount == 0){
+            if (res.data.totalCount == 0) {
               this.data5 = [];
               this.totalNum = 0;
             }
-            if(arr.length == 0){
+            if (arr.length == 0) {
               var obj = {
                 page: --this.page,
                 pageSize: this.pageSize,
@@ -303,6 +308,7 @@
               item.date = turntoDate(new Date(item.date).getTime());
             })
             this.data5 = res.data.result;
+            this.arr = this.data5.slice();
             this.totalNum = res.data.totalNum;
           }
         })
@@ -337,6 +343,15 @@
       },
       cancelBorrow() {
 
+      },
+      searchBooks: function () {
+        var newArr = []
+        for (var i = 0; i < this.arr.length; i++) {
+          if (this.arr[i].bookName.indexOf(this.searchInput) != -1 || this.arr[i].authorName.indexOf(this.searchInput) != -1) {
+            newArr.push(this.arr[i]);
+          }
+        }
+        this.data5 = newArr;
       }
     }
   }

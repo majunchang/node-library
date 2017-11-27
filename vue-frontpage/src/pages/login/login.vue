@@ -103,7 +103,7 @@
       },
       login() {
         if(!this.userName || !this.passWord){
-          console.log('majnchang');
+          console.log('majunchang');
           return;
         }
         console.log(this.identifyCode);
@@ -111,10 +111,7 @@
         if(this.identifyCode.toLocaleUpperCase() != this.identifyStandard.toLocaleUpperCase()){
           this.$SwalModal.MaModal('验证码错误','error');
           return
-        }else {
-          console.log('majunchang');
         }
-        return
 
         if ($('.error').length) {
           return

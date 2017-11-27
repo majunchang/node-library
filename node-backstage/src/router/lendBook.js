@@ -13,4 +13,8 @@ router.get(url+'/ManagerlendBackList',lendBookController.getManagerlendBackList)
 router.get(url+'/returnLendBook',lendBookController.returnLendBook)
 // 读者续借书籍
 router.get(url+'/renewLendBook',lendBookController.renewLendBook)
+
+// 查找当前热门书籍
+router.get(url+'/getCurrentHot',lendBookController.getCurrentHot)
+
 export  default router;

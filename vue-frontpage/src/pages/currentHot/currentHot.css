@@ -1,0 +1,10 @@
+.currentHot {
+  margin-left: 300px;
+  display: inline-block;
+}
+
+.currentHot .main{
+  width: 800px;
+  height: 600px;
+}
+

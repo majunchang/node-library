@@ -21,6 +21,7 @@ import Carousel3d from 'vue-carousel-3d'
 
 import SwalModal from './plugins/swertAlert'
 import swal from 'vue-sweetalert'
+import echarts from 'echarts'
 
 
 Vue.use(iView)
@@ -33,6 +34,7 @@ Vue.config.productionTip = false
 Vue.prototype.$url = 'fullStack'
 Vue.prototype.$routerStore = store
 Vue.prototype.$SwalModal = SwalModal;
+Vue.prototype.$echarts = echarts;
 
 
 /* eslint-disable no-new */
