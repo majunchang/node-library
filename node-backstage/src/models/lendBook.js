@@ -14,7 +14,8 @@ const lendBookSchema = mongoose.Schema({
     lendDate:Date,
     ShouldReturnDate:Date,
     bookPrice:Number,
-    reNewTimes:Number
+    reNewTimes:Number,
+    category:String
 })
 
 const lendBook  = mongoose.model('lendBook',lendBookSchema);

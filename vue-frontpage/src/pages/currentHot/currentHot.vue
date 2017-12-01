@@ -21,7 +21,7 @@
     data() {
       return {
         echarts: {},
-        starEcharts:{}
+        starEcharts: {}
       }
     },
     created() {
@@ -49,6 +49,7 @@
             将获取到的数组 先进行去重  然后筛选出前8位
            */
           var arr = res.data.result;
+          this.drawStarEcharts(arr)
           var newArr = [{
             bookName: '无所谓'
           }];
@@ -56,7 +57,7 @@
             var obj = {
               bookName: arr[i].bookName,
               count: 1,
-              category:arr[i].category
+              category: arr[i].category
             }
             var flag = false
             for (let k = 0; k < newArr.length; k++) {
@@ -71,7 +72,7 @@
             }
           }
           this.fillingEcharts(newArr)
-          this.drawStarEcharts(newArr)
+
         })
       },
       fillingEcharts(newArr) {
@@ -135,14 +136,39 @@
         this.echarts.hideLoading();
         this.echarts.setOption(option);
       },
-      drawStarEcharts(arr){
-        option = {
+      drawStarEcharts(arr) {
+        // 在这里 对数组 根据类名进行去重  然后对于类名不足6个的时候 增加判断
+        console.log(arr);
+        var newArr = [{
+          bookName: '无所谓',
+          category:'ewq'
+        }];
+        for (var i = 0; i < arr.length; i++) {
+          var obj = {
+            bookName: arr[i].bookName,
+            count: 1,
+            category: arr[i].category
+          }
+          var flag = false
+          for (let k = 0; k < newArr.length; k++) {
+            if (newArr[k].category.indexOf(obj.category) != -1) {
+              newArr[k].count++;
+              flag = true
+              break
+            }
+          }
+          if (!flag) {
+            newArr.push(obj);
+          }
+        }
+
+        var option = {
           title: {
-            text: '基础雷达图'
+            text: '热门类别统计图'
           },
           tooltip: {},
           legend: {
-            data: ['预算分配（Allocated Budget）', '实际开销（Actual Spending）']
+            data: ['预算分配（Allocated Budget）', '书籍热门类别统计']
           },
           radar: {
             // shape: 'circle',
@@ -155,26 +181,55 @@
               }
             },
             indicator: [
-              { name: '销售（sales）', max: 6500},
-              { name: '管理（Administration）', max: 16000},
-              { name: '信息技术（Information Techology）', max: 30000},
-              { name: '客服（Customer Support）', max: 38000},
-              { name: '研发（Development）', max: 52000},
-              { name: '市场（Marketing）', max: 25000}
+              {name: '销售（sales）', max: 6500},
+              {name: '管理（Administration）', max: 16000},
+              {name: '信息技术（Information Techology）', max: 30000},
+              {name: '客服（Customer Support）', max: 38000},
+              {name: '研发（Development）', max: 52000},
+              {name: '市场（Marketing）', max: 25000}
             ]
           },
           series: [{
             name: '预算 vs 开销（Budget vs spending）',
             type: 'radar',
             // areaStyle: {normal: {}},
-            data : [
+            data: [
               {
-                value : [5000, 14000, 28000, 31000, 42000, 21000],
-                name : '实际开销（Actual Spending）'
+                value: [5000, 14000, 28000, 31000, 42000, 21000],
+                name: '书籍热门类别统计'
               }
             ]
           }]
         };
+        newArr.shift();
+        var indicatorArr = [];
+        var valueArr = [];
+        var NumArr = []
+        var total = 0;
+        newArr.forEach((item, index) => {
+          if (index < 6) {
+            var obj = {
+              name: item.category,
+            }
+            indicatorArr.unshift(obj);
+            valueArr.unshift(item.count)
+          }
+          NumArr.push(item.count)
+        })
+        //  如何选取max  我们去数组中最高和最低
+
+        var max = Math.max.apply(null,NumArr);
+        var min = Math.min.apply(null,NumArr);
+        total = max+min;
+
+
+        indicatorArr.forEach((item, index) => {
+          item.max = total;
+        })
+        option.radar.indicator = indicatorArr;
+        option.series[0].data[0].value = valueArr;
+        this.starEcharts.hideLoading();
+        this.starEcharts.setOption(option);
       }
     }
   }

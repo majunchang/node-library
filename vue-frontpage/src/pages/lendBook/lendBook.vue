@@ -5,6 +5,9 @@
       <FormItem label="书籍名称">
         <Input v-model="formValidate.bookName" disabled placeholder="请输入修改后书籍名称"></Input>
       </FormItem>
+      <FormItem label="书籍类别">
+        <Input v-model="formValidate.category" disabled placeholder="请输入修改后书籍定价"></Input>
+      </FormItem>
       <FormItem label="借阅人姓名">
         <Input v-model="formValidate.userName" disabled></Input>
       </FormItem>

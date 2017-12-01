@@ -19,7 +19,8 @@ export function postBorrowBook(req, res, next) {
                 lendDate: FormData.startTime,
                 ShouldReturnDate: FormData.cutoffTime,
                 bookPrice: FormData.priceNum,
-                reNewTimes: FormData.renew
+                reNewTimes: FormData.renew,
+                category: FormData.category
             })
             return newlendBook.save()
         })

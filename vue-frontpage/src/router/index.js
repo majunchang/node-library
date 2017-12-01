@@ -15,6 +15,8 @@ import dashboard from '../pages/dashboard/dashboard.vue'
 import addBook from '../pages/addBook/addBook.vue'
 // 引入藏书总览的页面
 import libraryOverView from '../pages/libraryOverView/libraryOverView.vue'
+// 引入分类总览的页面 使用3d的图标来显示每一类的总数
+import overviewOfClassify from '../pages/overviewOfClassify/overviewOfClassify.vue'
 // 引入更新书籍的页面
 import updateBook from '../pages/updateBook/updateBook.vue'
 // 引入借书的页面
@@ -23,6 +25,8 @@ import lendBook from '../pages/lendBook/lendBook.vue'
 import lengbackList from '../pages/lendbackList/lendbackList.vue'
 // 引入当前热门书籍
 import currentHot from '../pages/currentHot/currentHot.vue'
+
+
 
 
 Vue.use(Router)
@@ -68,6 +72,11 @@ var router = new Router({
           path: '/libraryOverView',
           name: 'libraryOverView',
           component: libraryOverView
+        },
+        {
+          path:'/overviewOfClassify',
+          name:'overviewOfClassify',
+          component:overviewOfClassify
         },
         {
           path: '/updateBook/:id',

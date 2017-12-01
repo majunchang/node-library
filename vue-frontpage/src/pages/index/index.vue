@@ -438,7 +438,7 @@
         <div class="page-sidebar md-shadow-z-2-i  navbar-collapse collapse">
           <ul class="page-sidebar-menu " data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">
             <li class="start active " @click='goIndex'>
-              <a href="javascript:;" >
+              <a href="javascript:;">
                 <i class="icon-home"></i>
                 <span class="title">主页</span>
               </a>
@@ -467,7 +467,7 @@
                     <i class="icon-home"></i>
                     藏书总览</a>
                 </li>
-                <li>
+                <li @click='overviewOfClassify'>
                   <a href="ecommerce_orders.html">
                     <i class="icon-basket"></i>
                     分类总览</a>
@@ -518,7 +518,7 @@
                 <span class="arrow "></span>
               </a>
               <ul class="sub-menu">
-                <li  @click='goCurrnetHot'>
+                <li @click='goCurrnetHot'>
                   <a href="javascript:;">
                     当前热门书籍</a>
                 </li>
@@ -574,7 +574,7 @@
 
     },
     mounted() {
-      jQuery(document).ready(function() {
+      jQuery(document).ready(function () {
         Metronic.init(); // init metronic core componets
         Layout.init(); // init layout
         Demo.init(); // init demo features
@@ -590,36 +590,42 @@
           name: 'dashboard'
         })
       },
-      goAddBook(){
+      goAddBook() {
         this.$router.push({
-          path:'/addBook',
-          name:'addBook'
+          path: '/addBook',
+          name: 'addBook'
         })
       },
-      libraryOverView(){
+      libraryOverView() {
         this.$router.push({
-          path:'/libraryOverView',
-          name:'libraryOverView'
+          path: '/libraryOverView',
+          name: 'libraryOverView'
         })
       },
-      golengbackList(){
+      golengbackList() {
         this.$router.push({
-          path:'/lengbackList',
-          name:'lengbackList'
+          path: '/lengbackList',
+          name: 'lengbackList'
         })
       },
-      goLogout(){
+      goLogout() {
         this.$router.push({
           path: '/login',
           name: 'login'
         })
       },
-      goCurrnetHot(){
+      goCurrnetHot() {
         this.$router.push({
-          path:'/currentHot',
-          name:'currentHot'
+          path: '/currentHot',
+          name: 'currentHot'
         })
-      }
+      },
+      overviewOfClassify() {
+        this.$router.push({
+          path: '/overviewOfClassify',
+          name: 'overviewOfClassify'
+        })
+      },
     }
   }
 </script>
