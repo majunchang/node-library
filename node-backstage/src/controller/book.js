@@ -68,6 +68,16 @@ export function getAllBook(req, res, next) {
             }
             // console.log('majunchang');
             totalNum = docs.length
+            if (docs.length === 0) {
+                res.json({
+                    code: 0,
+                    result: [],
+                    totalNum: 0
+                })
+                return;
+            }
+            console.log(docs.length);
+            console.log('majunchang');
             book.find()
                 .skip((page - 1) * pageSize)
                 .limit(pageSize)

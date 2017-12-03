@@ -291,7 +291,7 @@
               在这里做一下限制  比如说删除的时候 导致本页数据出现空数组的情况
               或者说 total直接为0的情况
                */
-            if (res.data.totalCount == 0) {
+            if (res.data.totalNum == 0) {
               this.data5 = [];
               this.totalNum = 0;
             }
@@ -300,8 +300,10 @@
                 page: --this.page,
                 pageSize: this.pageSize,
               }
-              this.getAllBooks(obj);
-              return;
+              if (obj.page >= 1) {
+                this.getAllBooks(obj);
+              }
+              return
             }
 
             arr.forEach((item, index) => {
