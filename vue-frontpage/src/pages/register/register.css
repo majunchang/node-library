@@ -1,10 +1,10 @@
 
-.register{
+.register {
   width: 100%;
   height: 100%;
 }
 
-.left-image{
+.left-image {
   position: fixed;
   top: 0;
   left: 0;
@@ -19,28 +19,27 @@
   transition: all .5s;
 }
 
-
-
-.right-content{
+.right-content {
   margin-left: 480px;
 }
 
-.form{
+.form {
   position: relative;
   margin: 125px auto;
   width: 480px;
 }
+
 .form-title .title-one {
   font-size: 44px;
   margin-bottom: 20px;
 }
 
-.form-title .title-two,.form-title .title-three{
-  font-size: 20px ;
+.form-title .title-two, .form-title .title-three {
+  font-size: 20px;
   margin-bottom: 20px;
 }
 
-.registerUserName, .registerPassWord{
+.registerUserName, .registerPassWord {
   border: 1px #aaa solid;
   border-radius: 4px;
   background: 0 0;
@@ -54,7 +53,7 @@
   margin-bottom: 15px;
 }
 
-.registerSubmit{
+.registerSubmit {
   width: 480px;
   height: 50px;
   background: #28c0f7;
@@ -65,17 +64,40 @@
   cursor: pointer;
 }
 
-.registerUserName:focus,.registerPassWord:focus{
+.registerUserName:focus, .registerPassWord:focus {
   border-color: #549df8;
 }
 
-.registerUserName::-webkit-input-placeholder,.registerPassWord::-webkit-input-placeholder{
+.registerUserName::-webkit-input-placeholder, .registerPassWord::-webkit-input-placeholder {
   color: #aaa;
   font-size: 20px;
   line-height: 50px;
   font-weight: lighter;
 }
 
+.mailError {
+  color: red;
+  margin-bottom: 20px;
+}
+
+.registerCheckCode {
+  float: right;
+  border: 1px solid;
+  border: 1px #aaa solid;
+  border-radius: 4px;
+  background: 0 0;
+  text-align: left;
+  font-size: 13px;
+  width: 150px;
+  /* height: 50px; */
+  line-height: 36px;
+  padding: 0 20px;
+  outline: none;
+}
+
+.sendRegisterEmail {
+  margin-bottom: 20px;
+}
 
 /*设置底部的 注册和忘记密码  */
 .form-bottom {
@@ -89,11 +111,11 @@ span.registerNew {
   display: inline-block;
 }
 
-span.forgetPas{
+span.forgetPas {
   float: right;
   cursor: pointer;
 }
 
-.registerNew:hover,.forgetPas:hover{
+.registerNew:hover, .forgetPas:hover {
   color: #28c0f7;
 }

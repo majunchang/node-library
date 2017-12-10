@@ -12,10 +12,23 @@
           <div class="title-three">The whole world is in your hand</div>
         </div>
         <form action="" id='registerForm'>
-          <input type="text" class='registerUserName' placeholder='请输入用户名' v-model='newUserName' name="name" minlength="2" maxlength='8' required>
+          <input type="text" class='registerUserName' placeholder='请输入用户名' v-model='newUserName' name="name"
+                 minlength="2" maxlength='8' required>
           <!--<div class="err-tips">{{ conmputeUserName(userName) }}</div>-->
-          <input type="password" class='registerPassWord' placeholder='请输入密码' v-model='newPassword' name="password" minlength="2" maxlength='8' required>
-          <input type="submit" value='注册新用户' class='registerSubmit' @click.prevent='registerNewUser'>
+          <input type="password" class='registerPassWord' placeholder='请输入密码' v-model='newPassword' name="password"
+                 minlength="2" maxlength='8' required>
+          <input type="text" class='registerUserName' placeholder='请输入邮箱' @blur='validataEmail' v-model='newUserEmail'
+                 name="email" required>
+          <p class='mailError' v-if='mailBoxError'>{{mailBoxError}}</p>
+          <mu-raised-button class="sendRegisterEmail" :disabled='SendIng' :backgroundColor="bgc"
+                            @click='sendRegisterEmail' :label="mailLabel"/>
+
+          <input type="text" class='registerCheckCode' v-model='registerCheckCode' placeholder='请输入邮箱验证码'
+                 v-if='whetherShowRegisterBtn'>
+
+          <input type="submit" v-if='whetherShowRegisterBtn' value='注册新用户' class='registerSubmit'
+                 @click.prevent='registerNewUser'>
+
         </form>
         <div class="form-bottom">
           <span class='registerNew' @click='goLogin'>返回登录</span>
@@ -38,13 +51,20 @@
     data() {
       return {
         newUserName: '',
-        newPassword: ''
+        newPassword: '',
+        newUserEmail: '',
+        SendIng: false,
+        bgc: '#00a2de',
+        mailLabel: '发送注册邮件',
+        mailBoxError: '21312312',
+        registerCheckCode: '',
+        whetherShowRegisterBtn: false
       }
     },
     created() {
       this.register = true
     },
-    mounted(){
+    mounted() {
       this.validate()
     },
     computed: {},
@@ -55,16 +75,56 @@
       ...mapMutations({
         'setUser': 'SET_USER'
       }),
-      validate(){
+      validate() {
         $().ready(function () {
           $("#registerForm").validate({
             debug: true
           });
           $.validator.setDefaults({
-            submitHandler: function() {
+            submitHandler: function () {
 
             }
           });
+        })
+      },
+      validataEmail() {
+        var mailBox = this.newUserEmail;
+        var reg = /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/;
+
+        this.mailBoxError = '';
+        if (mailBox.trim() === '') {
+          this.mailBoxError = '邮箱输入不能为空';
+        } else if (!reg.test(mailBox)) {
+          this.mailBoxError = '请输入正确的邮箱地址';
+        }
+      },
+      sendRegisterEmail() {
+        // 用户名和密码不能为空
+        if (!this.newUserName || !this.newPassword) {
+          this.$SwalModal.MaModal('输入有误，请检查后重新输入', 'warning')
+          return
+        }
+        // 邮箱输入有误的时候
+        if (this.mailBoxError) {
+          this.$SwalModal.MaModal('邮箱格式不正确', 'warning')
+          return
+        }
+        axios({
+          url: '/proxy/fullStack/registerSendEmail',
+          method: 'post',
+          data: {
+            mailBox: this.mailBox,
+            userName:this.newUserName
+          }
+        }).then((data) => {
+          console.log(data);
+          if(data.data.code === 0){
+            this.whetherShowRegisterBtn = true
+            this.$SwalModal.MaModal('邮件发送成功，请前往注册邮箱进行查看', 'success')
+          }
+          else {
+            this.$SwalModal.MaModal('邮件发送失败！', 'error')
+          }
         })
       },
       goLogin() {
