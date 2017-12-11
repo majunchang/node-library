@@ -32,20 +32,20 @@ export function registerSendEmail(req, res, next) {
     // 这里与下面的 忘记密码的操作很相似 可以进行封装为一个共有函数去处理  在这里不做具体说明
     randomRegisterMailContent = geneRateMix(6);
     var registerMailObj = {
-        userName:userName,
-        randomRegisterMailContent:randomRegisterMailContent
+        userName: userName,
+        randomRegisterMailContent: randomRegisterMailContent
     }
-    if(randomRegisterMailArr.length === 0){
+    if (randomRegisterMailArr.length === 0) {
         randomRegisterMailArr.push(registerMailObj)
     }
-    for(var k= 0;k<randomRegisterMailArr.length;k++){
-        if(randomRegisterMailArr[k].userName = registerMailObj.userName){
+    for (var k = 0; k < randomRegisterMailArr.length; k++) {
+        if (randomRegisterMailArr[k].userName = registerMailObj.userName) {
             randomRegisterMailArr[k].randomRegisterMailContent = registerMailObj.randomRegisterMailContent
             break; // 在这里终止循环
         }
         randomRegisterMailArr.push(registerMailObj)
     }
-    if(randomRegisterMailArr.length>20){
+    if (randomRegisterMailArr.length > 20) {
         randomRegisterMailArr.shift()
     }
     var smtpTransport = nodeMailer.createTransport({
@@ -64,11 +64,11 @@ export function registerSendEmail(req, res, next) {
         to: mailBox,
         subject: '图书管理系统注册账户验证码',
         html: `<h2>图书管理系统注册账户验证码:</h2><h3>
-    <p>您的验证码是</p><p>${randomMailContent}</p></h3>`
+    <p>您的验证码是</p><p>${randomRegisterMailContent}</p></h3>`
     };
 
-    smtpTransport.sendMail(mailOptions,(err,info)=>{
-        if(err){
+    smtpTransport.sendMail(mailOptions, (err, info) => {
+        if (err) {
             return res.json({
                 code: 501,
                 message: '发送邮件失败'
@@ -77,7 +77,8 @@ export function registerSendEmail(req, res, next) {
         }
         res.json({
             code: 0,
-            message: '发送邮件成功'
+            message: '发送邮件成功',
+            checkCode: randomRegisterMailContent
         })
     })
 
@@ -101,7 +102,8 @@ export function register(req, res, next) {
         }
         const newUser = new user({
             name: req.query.username,
-            password: req.query.password
+            password: req.query.password,
+            mail: req.query.mailBox
         })
         return newUser.save();
     }).then((docs) => {
@@ -150,7 +152,6 @@ var randomMailContent = ''
 var userForgetArr = [];
 
 
-
 //  向邮箱发送验证码
 export function SendEmail(req, res, next) {
     var userName = JSON.parse(req.body).userName;
@@ -167,7 +168,16 @@ export function SendEmail(req, res, next) {
                 code: 1,
                 message: '该用户不存在'
             })
+            return
         }
+        if (user.mailBox != mailBox.trim()) {
+            res.json({
+                code: 1,
+                message: '用户注册邮箱有误,不能核实使用人身份！'
+            })
+            return
+        }
+
         randomMailContent = geneRateMix(6);
         // console.log(randomMailContent);
         var mailObj = {
@@ -217,7 +227,7 @@ export function SendEmail(req, res, next) {
             }
             res.json({
                 code: 0,
-                message: '发送邮件成功'
+                message: '发送邮件成功',
             })
             return false;
         })

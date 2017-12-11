@@ -117,3 +117,6 @@ label.error {
   font-weight: bold !important;
   margin-top: -8px;
 }
+.error{
+  color: red;
+}

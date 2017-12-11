@@ -528,17 +528,11 @@
                 </li>
               </ul>
             </li>
-            <li>
+            <li @click='goPerSonalSetting'>
               <a href="javascript:;">
                 <i class="icon-user"></i>
                 <span class="title">用户个人信息设置</span>
-                <span class="arrow "></span>
               </a>
-              <ul class="sub-menu">
-                <li>
-                  <span>个人设置</span>
-                </li>
-              </ul>
             </li>
           </ul>
           <!-- END SIDEBAR MENU -->
@@ -626,6 +620,12 @@
           name: 'overviewOfClassify'
         })
       },
+      goPerSonalSetting() {
+        this.$router.push({
+          path: '/personnalSetting',
+          name: 'personnalSetting',
+        })
+      }
     }
   }
 </script>

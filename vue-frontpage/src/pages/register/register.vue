@@ -13,10 +13,10 @@
         </div>
         <form action="" id='registerForm'>
           <input type="text" class='registerUserName' placeholder='请输入用户名' v-model='newUserName' name="name"
-                 minlength="2" maxlength='8' required>
+                 minlength="2" maxlength='18' required>
           <!--<div class="err-tips">{{ conmputeUserName(userName) }}</div>-->
           <input type="password" class='registerPassWord' placeholder='请输入密码' v-model='newPassword' name="password"
-                 minlength="2" maxlength='8' required>
+                 minlength="2" maxlength='18' required>
           <input type="text" class='registerUserName' placeholder='请输入邮箱' @blur='validataEmail' v-model='newUserEmail'
                  name="email" required>
           <p class='mailError' v-if='mailBoxError'>{{mailBoxError}}</p>
@@ -32,7 +32,7 @@
         </form>
         <div class="form-bottom">
           <span class='registerNew' @click='goLogin'>返回登录</span>
-          <span class='forgetPas'>忘记密码</span>
+          <!--<span class='forgetPas'>忘记密码</span>-->
         </div>
       </div>
     </div>
@@ -56,9 +56,10 @@
         SendIng: false,
         bgc: '#00a2de',
         mailLabel: '发送注册邮件',
-        mailBoxError: '21312312',
+        mailBoxError: '',
         registerCheckCode: '',
-        whetherShowRegisterBtn: false
+        whetherShowRegisterBtn: false,
+        standardCheckCode: ''
       }
     },
     created() {
@@ -113,14 +114,29 @@
           url: '/proxy/fullStack/registerSendEmail',
           method: 'post',
           data: {
-            mailBox: this.mailBox,
-            userName:this.newUserName
+            mailBox: this.newUserEmail,
+            userName: this.newUserName
           }
         }).then((data) => {
           console.log(data);
-          if(data.data.code === 0){
+          if (data.data.code === 0) {
+            this.SendIng = true;
+            this.standardCheckCode = data.data.checkCode
+            this.bgc = 'gray'
             this.whetherShowRegisterBtn = true
             this.$SwalModal.MaModal('邮件发送成功，请前往注册邮箱进行查看', 'success')
+            //  然后发送邮件的注册按钮 变成灰色 不可点击 并且有一个计时效果
+            var time = 60;
+            var timer = setInterval(() => {
+              time--;
+              this.mailLabel = `${time}秒后重新发送`
+              if (time === 0) {
+                this.SendIng = false;
+                this.bgc = '#00a2de'
+                this.mailLabel = '发送注册邮件';
+                clearInterval(timer)
+              }
+            }, 1000)
           }
           else {
             this.$SwalModal.MaModal('邮件发送失败！', 'error')
@@ -137,9 +153,25 @@
 //        console.log($('.registerUserName'));
 //        console.log(this.newPassword);
 //        console.log(this.newUserName);
+        // 用户名和密码不能为空
+        if (!this.newUserName || !this.newPassword || !this.registerCheckCode) {
+          this.$SwalModal.MaModal('输入有误，请检查后重新输入', 'warning')
+          return
+        }
+        // 邮箱输入有误的时候
+        if (this.mailBoxError) {
+          this.$SwalModal.MaModal('邮箱格式不正确', 'warning')
+          return
+        }
+        if (this.registerCheckCode.toLocaleUpperCase() != this.standardCheckCode.toLocaleString()) {
+          this.$SwalModal.MaModal('验证码输入不正确', 'warning')
+          return
+        }
+
         var obj = {
           password: this.newPassword,
-          username: this.newUserName
+          username: this.newUserName,
+          mailBox: this.newUserEmail
         }
         axios.get(`/proxy/${this.$url}/register`, {
           params: obj

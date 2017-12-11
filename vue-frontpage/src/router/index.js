@@ -26,7 +26,10 @@ import lengbackList from '../pages/lendbackList/lendbackList.vue'
 // 引入当前热门书籍
 import currentHot from '../pages/currentHot/currentHot.vue'
 
+// 引入个人信息设置页面
+import personnalSetting from '../pages/personalSetting/personalSetting.vue'
 
+// 引入播放音乐 舒缓一刻的页面
 
 
 Vue.use(Router)
@@ -74,9 +77,9 @@ var router = new Router({
           component: libraryOverView
         },
         {
-          path:'/overviewOfClassify',
-          name:'overviewOfClassify',
-          component:overviewOfClassify
+          path: '/overviewOfClassify',
+          name: 'overviewOfClassify',
+          component: overviewOfClassify
         },
         {
           path: '/updateBook/:id',
@@ -89,14 +92,19 @@ var router = new Router({
           component: lendBook
         },
         {
-          path: 'lengbackList',
+          path: '/lengbackList',
           name: 'lengbackList',
           component: lengbackList
         },
         {
-          path:'currentHot',
-          name:'currentHot',
-          component:currentHot
+          path: '/currentHot',
+          name: 'currentHot',
+          component: currentHot
+        },
+        {
+          path: '/personnalSetting',
+          name: 'personnalSetting',
+          component: personnalSetting
         }
       ]
     },
