@@ -10,6 +10,80 @@ import nodeMailer from 'nodemailer'
 //     res.end(err.name + err.stack);
 // }
 
+
+function geneRateMix(n) {
+    var res = "";
+    for (var i = 0; i < n; i++) {
+        var id = Math.ceil(Math.random() * 35);
+        res += chars[id];
+    }
+    return res;
+}
+
+var randomRegisterMailContent = ''
+var randomRegisterMailArr = []
+
+// 注册的时候 向邮箱发送验证码
+export function registerSendEmail(req, res, next) {
+    var mailBox = JSON.parse(req.body).mailBox;
+    var userName = JSON.parse(req.body).userName;
+
+    //  在这里做一下  当用户发送多次验证码和服务器高并发的情况
+    // 这里与下面的 忘记密码的操作很相似 可以进行封装为一个共有函数去处理  在这里不做具体说明
+    randomRegisterMailContent = geneRateMix(6);
+    var registerMailObj = {
+        userName:userName,
+        randomRegisterMailContent:randomRegisterMailContent
+    }
+    if(randomRegisterMailArr.length === 0){
+        randomRegisterMailArr.push(registerMailObj)
+    }
+    for(var k= 0;k<randomRegisterMailArr.length;k++){
+        if(randomRegisterMailArr[k].userName = registerMailObj.userName){
+            randomRegisterMailArr[k].randomRegisterMailContent = registerMailObj.randomRegisterMailContent
+            break; // 在这里终止循环
+        }
+        randomRegisterMailArr.push(registerMailObj)
+    }
+    if(randomRegisterMailArr.length>20){
+        randomRegisterMailArr.shift()
+    }
+    var smtpTransport = nodeMailer.createTransport({
+        service: 'SMTP',
+        host: 'smtp.163.com',
+        secureConnection: true,
+        port: 465,
+        auth: {
+            user: '13012270529@163.com',
+            pass: 'majunchang521'
+        }
+    })
+
+    var mailOptions = {
+        from: '13012270529@163.com',
+        to: mailBox,
+        subject: '图书管理系统注册账户验证码',
+        html: `<h2>图书管理系统注册账户验证码:</h2><h3>
+    <p>您的验证码是</p><p>${randomMailContent}</p></h3>`
+    };
+
+    smtpTransport.sendMail(mailOptions,(err,info)=>{
+        if(err){
+            return res.json({
+                code: 501,
+                message: '发送邮件失败'
+            })
+            return
+        }
+        res.json({
+            code: 0,
+            message: '发送邮件成功'
+        })
+    })
+
+
+}
+
 export function register(req, res, next) {
 
     //  在这里注册 的时候 增加学号的注册  从20170001开始
@@ -43,6 +117,7 @@ export function register(req, res, next) {
         })
 }
 
+
 export function login(req, res, next) {
     var name = JSON.parse(req.body).name;
     user
@@ -75,14 +150,6 @@ var randomMailContent = ''
 var userForgetArr = [];
 
 
-function geneRateMix(n) {
-    var res = "";
-    for (var i = 0; i < n; i++) {
-        var id = Math.ceil(Math.random() * 35);
-        res += chars[id];
-    }
-    return res;
-}
 
 //  向邮箱发送验证码
 export function SendEmail(req, res, next) {

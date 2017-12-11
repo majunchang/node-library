@@ -48,9 +48,7 @@
           <div class="content">
             <h1 class='secondStepTitle'>第二步 &nbsp;&nbsp;&nbsp; 输入邮箱验证码并设置新密码</h1>
 
-            <p class='boxDesc'>
-              超级管理员是本系统中权限最大的管理员，能够进入盒子后台对盒子的软件升级,使用情况，用户以及访问控制，网络配置进行操作。请您牢记您的超级管理员账号。超级管理员账号和盒子绑定。每个盒子仅有唯一的超级管理员。
-            </p>
+
             <mu-text-field
               hintTextClass='secondStepHint'
               inputClass='secondStepInput'

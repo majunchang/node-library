@@ -5,6 +5,9 @@ import * as loginController from '../controller/login'
 const url = '/fullStack'
 const router = express.Router();
 
+
+// 注册用户时  进行的邮箱验证
+router.post(url+'/registerSendEmail',loginController.registerSendEmail)
 router.get(url+'/register',loginController.register)
 router.post(url+'/login',loginController.login)
 
