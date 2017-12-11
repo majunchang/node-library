@@ -134,8 +134,8 @@
               })
               setTimeout(() => {
                 _this.$router.push({
-                  path: '/index',
-                  name: 'index'
+                  path: '/homePage',
+                  name: 'dashboard'
                 })
               }, 1000)
               // 在这里将用户存入vuex

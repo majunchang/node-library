@@ -468,7 +468,7 @@
                     藏书总览</a>
                 </li>
                 <li @click='overviewOfClassify'>
-                  <a href="ecommerce_orders.html">
+                  <a href="javascript:;">
                     <i class="icon-basket"></i>
                     分类总览</a>
                 </li>

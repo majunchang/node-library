@@ -59,7 +59,7 @@ var router = new Router({
       component: index,
       children: [
         {
-          path: '/index',
+          path: '/homePage',
           name: 'dashboard',
           component: dashboard
         },

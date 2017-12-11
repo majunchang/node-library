@@ -19,5 +19,7 @@ router.get(url+'/borrowBook',bookController.getBorrowBook)
 // 删除书籍
 router.get(url+'/removeBook',bookController.removeBook)
 
+// 查询分类书籍
+router.get(url+'/overviewOfClassify',bookController.overviewOfClassify)
 
 export default router

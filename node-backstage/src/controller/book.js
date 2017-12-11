@@ -68,6 +68,14 @@ export function getAllBook(req, res, next) {
             }
             // console.log('majunchang');
             totalNum = docs.length
+            if (docs.length === 0) {
+                res.json({
+                    code: 0,
+                    result: [],
+                    totalNum: 0
+                })
+                return;
+            }
             book.find()
                 .skip((page - 1) * pageSize)
                 .limit(pageSize)
@@ -195,5 +203,30 @@ export function  getBorrowBook(req,res,next) {
                 console.log(err);
                 return
             }
+        })
+}
+
+
+// 渲染分类查询
+export function overviewOfClassify(req,res,next) {
+    // 在这里查询到所有的书籍 不需要分页 直接进行返回
+    book.find()
+        .then((docs)=>{
+            if(docs){
+                res.json({
+                    result:docs,
+                    code:0
+                })
+            }
+        })
+        .catch((err)=>{
+        if(err){
+            res.json({
+                code:500,
+                message:'返回数据失败'
+            })
+            console.log(err);
+            return
+        }
         })
 }
