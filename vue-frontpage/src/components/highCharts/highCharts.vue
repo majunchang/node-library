@@ -15,8 +15,7 @@
         </tr>
         <tr>
           <td>深度</td>
-          <td><input id="depth" type="range" min="20" max="100" value="50"/> <span id="depth-value"
-                                                                                   class="value"></span></td>
+          <td><input id="depth" type="range" min="20" max="100" value="50"/> <span id="depth-value" class="value"></span></td>
         </tr>
       </table>
     </div>
