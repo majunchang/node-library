@@ -16,4 +16,6 @@ router.post(url+'/SendEmail',loginController.SendEmail)
 // 验证邮箱 并更改密码
 router.post(url+'/changePas',loginController.ChangePas)
 
+
+
 export  default  router;
