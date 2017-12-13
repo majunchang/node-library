@@ -1,40 +1,38 @@
 <template>
   <div class="personal">
     <div class="personal-box">
-      <Form ref="formValidate" :model="personalInfo"  :label-width="80">
-        <FormItem label="呢称" prop="nickname">
-          <Input v-model="personalInfo.nickname" placeholder="请输入你在本系统的昵称"></Input>
-        </FormItem>
-        <FormItem label="上传头像" prop="avatar">
-          <Upload
-            multiple
-            type="drag"
-            action="/proxy/fullStack/uploadFiles"
-            :format="['jpg','jpeg','png']"
-           :max-size='2048'
-            :on-success="handleSuccess">
-            <div style="padding: 20px 0;width: 600px;height: 500px">
-              <img src="../../../static/images/1.jpg" alt="">
-              <Icon type="ios-cloud-upload" size="52" style="color: #3399ff"></Icon>
-              <p>点击此处上传或拖拽上传</p>
+      <form action="/proxy/fullStack/uploadFiles">
+        <div class="personal-single">
+          <span class='personal-single-span'>个人昵称</span>
+          <input type="text" placeholder='请输入你在本系统的昵称' v-model='nickname' class='personal-nickname'>
+        </div>
+        <div class="personal-single singleFile">
+          <span class='personal-single-span'>个人头像</span>
+          <input type="file" accept='image/jpeg,image/png,image/jpg' class='personal-file'
+                 @change='getFile'>
+          <div class="upload-box">
+            <div class="upload-box-center">
+              <img src="../../../static/images/upload.png" alt="" class='upload-img'>
+              <p>点击此处上传头像</p>
             </div>
-          </Upload>
-        </FormItem>
+          </div>
+        </div>
+        <input type="submit" value='上传' class='personal-formSubmit' @click.stop='uploadAvater'>
 
-      </Form>
+      </form>
     </div>
   </div>
 </template>
 
 <script>
+  import axios from 'axios';
+
   export default {
     props: {},
     components: {},
     data() {
       return {
-        personalInfo: {
-          nickname: this.$store.state.user,
-        }
+        nickname: this.$store.state.user,
       }
     },
     created() {
@@ -42,9 +40,26 @@
     },
     computed: {},
     methods: {
-      handleSuccess(res,file){
-        console.log(file);
-        console.log(res);
+      uploadAvater() {
+
+        axios({
+          method: 'post',
+          url: '/proxy/fullStack/uploadFiles',
+          headers: {'Content-Type': 'multipart/form-data'},
+          data: {
+            nickname: this.nickname,
+            file: this.file
+          },
+        })
+          .then(function (res) {
+            console.log(res);
+          });
+      },
+      getFile(e) {
+        console.log(e.target);
+        console.log(e.target.files);
+        console.log(e.target.files[0]);
+        this.file = e.target.files[0];
       }
     }
   }

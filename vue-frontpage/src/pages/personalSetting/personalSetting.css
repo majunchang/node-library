@@ -1,8 +1,72 @@
-.personal{
+.personal {
   margin-left: 300px;
 }
 
-.personal-box{
+.personal-box {
   margin: 0 auto;
   width: 680px;
+}
+
+input.personal-nickname {
+  border: 1px #aaa solid;
+  border-radius: 4px;
+  background: 0 0;
+  text-align: left;
+  font-size: 14px;
+  padding: 0 10px;
+  outline: none;
+  margin-bottom: 10px;
+  margin-left: 10px;
+}
+
+.personal-nickname:focus {
+  border-color: #549df8;
+}
+
+.personal-formSubmit {
+  margin-top: 35px;
+  width: 200px;
+  height: 36px;
+  background: #28c0f7;
+  outline: none;
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+  border: none;
+  margin-left: 68px;
+}
+
+.personal-single {
+   height: 40px;
+}
+.singleFile{
+  position: relative;
+  height: 314px;
+}
+
+input.personal-file {
+  opacity: 0;
+  display: inline-block;
+  width: 300px;
+  height: 300px;
+  border: 1px solid #ccc;
+  position: absolute;
+  top: 10px;
+  left: 70px;
+  z-index: 100;
+}
+.upload-box {
+  display: inline-block;
+  width: 300px;
+  height: 300px;
+  border: 1px solid #ccc;
+  position: absolute;
+  top: 10px;
+  left: 70px;
+  text-align: center;
+}
+
+.upload-box-center{
+  display: inline-block;
+  margin-top: 120px;
 }
