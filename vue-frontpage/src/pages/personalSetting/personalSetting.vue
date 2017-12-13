@@ -9,10 +9,12 @@
           <Upload
             multiple
             type="drag"
-            action="//jsonplaceholder.typicode.com/posts/">
+            action="//jsonplaceholder.typicode.com/posts/"
+            headers='{"enctype":"multipart/form-data"}'
+          >
             <div style="padding: 20px 0">
               <Icon type="ios-cloud-upload" size="52" style="color: #3399ff"></Icon>
-              <p>Click or drag files here to upload</p>
+              <p>点击或者拖拽图片进行上传</p>
             </div>
           </Upload>
         </FormItem>
@@ -28,9 +30,7 @@
     components: {},
     data() {
       return {
-        personalInfo:{
-
-        }
+        personalInfo: {}
       }
     },
     created() {
