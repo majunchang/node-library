@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        body {
+            background-color: deepskyblue;
+        }
+
+        .box {
+            width: 1000px;
+            height: 240px;
+            margin: 0 auto;
+            margin-top: 100px;
+            clear: both;
+        }
+
+        #btn {
+            width: 100px;
+            height: 30px;
+            margin-left: 600px;
+            margin-top: 50px;
+        }
+
+        .name {
+            width: 100px;
+            height: 30px;
+            float: left;
+            background-color: antiquewhite;
+            margin-left: 10px;
+            margin-top: 10px;
+            text-align: center;
+            line-height: 30px;
+        }
+
+        #span {
+            float: right;
+            position: relative;
+            top: 55px;
+            right: 185px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+    </style>
+
+</head>
+<body>
+
+</body>
+</html>
+<script>
+    var arr = [1,2,3,4,5,6,87,8,1,2,3];
+    var newArr = ['ma'];
+    for(var i=0;i<arr.length;i++){
+        var obj = {
+            bookName:arr[i],
+            count:1
+        }
+
+        for(let k=0;k<newArr.length;k++){
+            if(newArr[k].indexOf(obj.bookName) != -1){
+                newArr[k].count++;
+                break
+            }
+            if(k===newArr.length-1){
+                newArr.push(obj);
+            }
+        }
+    }
+    console.log(newArr);
+</script>
