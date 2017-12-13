@@ -42,5 +42,5 @@
 </script>
 
 <style scoped>
-  @import "personalSetting.css";
+ 
 </style>
