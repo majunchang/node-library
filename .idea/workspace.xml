@@ -1,7 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="04bf50da-0c74-4d69-b09c-af56f1730316" name="默认的" comment="增加用户个人设置信息 在注册新用户的时候 增加邮箱验证 并将该邮箱和用户进行绑定" />
+    <list default="true" id="04bf50da-0c74-4d69-b09c-af56f1730316" name="默认的" comment="增加用户个人设置信息 在注册新用户的时候 增加邮箱验证 并将该邮箱和用户进行绑定">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/vue-frontpage/static/images/1.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node-backstage/src/controller/uploadFiles.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/node-backstage/src/router/uploadFiles.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/vue-frontpage/src/pages/personalSetting/personalSetting.css" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/vue-frontpage/src/pages/personalSetting/personalSetting.vue" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/03-测试终止循环.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/04-随机分配任务.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/05-数组的排序.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/06-对象的引用类型.html" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node-backstage/src/router/login.js" afterPath="$PROJECT_DIR$/node-backstage/src/router/login.js" />
+    </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
     <ignored path="$PROJECT_DIR$/tmp/" />
@@ -17,7 +29,7 @@
       <file leaf-file-name="libraryOverView.vue" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/vue-frontpage/src/pages/libraryOverView/libraryOverView.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
+            <state relative-caret-position="-54">
               <caret line="235" column="24" lean-forward="false" selection-start-line="235" selection-start-column="24" selection-end-line="235" selection-end-column="24" />
               <folding>
                 <element signature="e#1401#1462#0" expanded="true" />
@@ -29,7 +41,7 @@
       <file leaf-file-name="index.vue" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/vue-frontpage/src/pages/index/index.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2069">
+            <state relative-caret-position="1556">
               <caret line="582" column="16" lean-forward="false" selection-start-line="582" selection-start-column="16" selection-end-line="582" selection-end-column="16" />
               <folding />
             </state>
@@ -40,7 +52,7 @@
         <entry file="file://$PROJECT_DIR$/node-backstage/src/models/user.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="162">
-              <caret line="6" column="2" lean-forward="true" selection-start-line="6" selection-start-column="2" selection-end-line="6" selection-end-column="2" />
+              <caret line="6" column="2" lean-forward="false" selection-start-line="6" selection-start-column="2" selection-end-line="6" selection-end-column="2" />
               <folding />
             </state>
           </provider>
@@ -50,27 +62,27 @@
         <entry file="file://$PROJECT_DIR$/node-backstage/src/models/lendBook.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="152">
-              <caret line="9" column="0" lean-forward="true" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
+              <caret line="9" column="0" lean-forward="false" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="login.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="login.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/node-backstage/src/router/login.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="405">
-              <caret line="17" column="0" lean-forward="true" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
+              <caret line="17" column="0" lean-forward="false" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="addBook.vue" pinned="false" current-in-tab="true">
+      <file leaf-file-name="addBook.vue" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/vue-frontpage/src/pages/addBook/addBook.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="302">
-              <caret line="16" column="16" lean-forward="true" selection-start-line="16" selection-start-column="16" selection-end-line="16" selection-end-column="16" />
+            <state relative-caret-position="567">
+              <caret line="46" column="17" lean-forward="true" selection-start-line="46" selection-start-column="17" selection-end-line="46" selection-end-column="17" />
               <folding>
                 <element signature="n#FormItem#0;n#Form#0;n#div#0;n#template#0;n#!!top" expanded="false" />
                 <element signature="n#FormItem#1;n#Form#0;n#div#0;n#template#0;n#!!top" expanded="false" />
@@ -530,7 +542,7 @@
       <workItem from="1512973587729" duration="598000" />
       <workItem from="1512982813897" duration="5184000" />
       <workItem from="1513073110884" duration="1459000" />
-      <workItem from="1513154576253" duration="451000" />
+      <workItem from="1513154576253" duration="649000" />
     </task>
     <task id="LOCAL-00001" summary="增删差改功能">
       <created>1509632685672</created>
@@ -641,7 +653,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="304242000" />
+    <option name="totallyTimeSpent" value="304440000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1616" height="876" extended-state="6" />
@@ -799,13 +811,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="459">
           <caret line="17" column="64" lean-forward="false" selection-start-line="17" selection-start-column="51" selection-end-line="17" selection-end-column="64" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/03-测试终止循环.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="503">
-          <caret line="65" column="21" lean-forward="true" selection-start-line="65" selection-start-column="21" selection-end-line="65" selection-end-column="21" />
         </state>
       </provider>
     </entry>
@@ -991,7 +996,7 @@
     <entry file="file://$PROJECT_DIR$/node-backstage/src/models/user.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="162">
-          <caret line="6" column="2" lean-forward="true" selection-start-line="6" selection-start-column="2" selection-end-line="6" selection-end-column="2" />
+          <caret line="6" column="2" lean-forward="false" selection-start-line="6" selection-start-column="2" selection-end-line="6" selection-end-column="2" />
           <folding />
         </state>
       </provider>
@@ -999,7 +1004,7 @@
     <entry file="file://$PROJECT_DIR$/node-backstage/src/models/lendBook.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="152">
-          <caret line="9" column="0" lean-forward="true" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
+          <caret line="9" column="0" lean-forward="false" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -1008,14 +1013,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="135">
           <caret line="5" column="17" lean-forward="true" selection-start-line="5" selection-start-column="17" selection-end-line="6" selection-end-column="1" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/node-backstage/src/router/login.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="405">
-          <caret line="17" column="0" lean-forward="true" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -1040,7 +1037,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/vue-frontpage/src/pages/libraryOverView/libraryOverView.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
+        <state relative-caret-position="-54">
           <caret line="235" column="24" lean-forward="false" selection-start-line="235" selection-start-column="24" selection-end-line="235" selection-end-column="24" />
           <folding>
             <element signature="e#1401#1462#0" expanded="true" />
@@ -1050,7 +1047,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/vue-frontpage/src/pages/index/index.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2069">
+        <state relative-caret-position="1556">
           <caret line="582" column="16" lean-forward="false" selection-start-line="582" selection-start-column="16" selection-end-line="582" selection-end-column="16" />
           <folding />
         </state>
@@ -1061,16 +1058,24 @@
         <state relative-caret-position="2474">
           <caret line="104" column="34" lean-forward="false" selection-start-line="104" selection-start-column="18" selection-end-line="104" selection-end-column="34" />
           <folding>
-            <element signature="e#68#112#0" expanded="true" />
-            <element signature="e#308#364#0" expanded="true" />
+            <element signature="e#68#112#0" expanded="false" />
+            <element signature="e#308#364#0" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/03-测试终止循环.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="341">
+          <caret line="65" column="21" lean-forward="true" selection-start-line="65" selection-start-column="21" selection-end-line="65" selection-end-column="21" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/vue-frontpage/src/pages/addBook/addBook.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="302">
-          <caret line="16" column="16" lean-forward="true" selection-start-line="16" selection-start-column="16" selection-end-line="16" selection-end-column="16" />
+        <state relative-caret-position="567">
+          <caret line="46" column="17" lean-forward="true" selection-start-line="46" selection-start-column="17" selection-end-line="46" selection-end-column="17" />
           <folding>
             <element signature="n#FormItem#0;n#Form#0;n#div#0;n#template#0;n#!!top" expanded="false" />
             <element signature="n#FormItem#1;n#Form#0;n#div#0;n#template#0;n#!!top" expanded="false" />
@@ -1081,6 +1086,14 @@
             <element signature="n#FormItem#7;n#Form#0;n#div#0;n#template#0;n#!!top" expanded="false" />
             <element signature="n#FormItem#8;n#Form#0;n#div#0;n#template#0;n#!!top" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/node-backstage/src/router/login.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="405">
+          <caret line="17" column="0" lean-forward="false" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
