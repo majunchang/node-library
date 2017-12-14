@@ -1,14 +1,14 @@
 <template>
   <div class="personal">
     <div class="personal-box">
-      <form action="/proxy/fullStack/uploadFiles">
+      <form action="/proxy/fullStack/uploadFiles" method='post' enctype='multipart/form-data' class='form'>
         <div class="personal-single">
           <span class='personal-single-span'>个人昵称</span>
-          <input type="text" placeholder='请输入你在本系统的昵称' v-model='nickname' class='personal-nickname'>
+          <input type="text" placeholder='请输入你在本系统的昵称' v-model='nickname' name=' nickname' class='personal-nickname'>
         </div>
         <div class="personal-single singleFile">
           <span class='personal-single-span'>个人头像</span>
-          <input type="file" accept='image/jpeg,image/png,image/jpg' class='personal-file'
+          <input type="file" accept='image/jpeg,image/png,image/jpg' name='file' class='personal-file'
                  @change='getFile'>
           <div class="upload-box">
             <div class="upload-box-center">
@@ -17,7 +17,7 @@
             </div>
           </div>
         </div>
-        <input type="submit" value='上传' class='personal-formSubmit' @click.stop='uploadAvater'>
+        <input type="submit" value='上传' class='personal-formSubmit' @click.prevent='uploadAvater'>
 
       </form>
     </div>
@@ -41,19 +41,33 @@
     computed: {},
     methods: {
       uploadAvater() {
-
-        axios({
-          method: 'post',
+        $.ajax({
           url: '/proxy/fullStack/uploadFiles',
-          headers: {'Content-Type': 'multipart/form-data'},
-          data: {
-            nickname: this.nickname,
-            file: this.file
-          },
+          type: 'post',
+          data: new FormData($('.form')[0]),
+          // 当你的 data 选项被提交为一个 FormData 对象的时候，一定要将 processData 配置为 false
+          // 否则 jQuery 的异步提交不生效
+          processData: false,  // tell jQuery not to process the data
+          // 当提交一个 FormData 对象的时候，记得要将 contentType 设置为 false
+          // 否则 jQuery 会默认把 Content-Type 设置为 application/x-www-form-urlencoded; charset=UTF-8
+          contentType: false,  // tell jQuery not to set contentType
+          success: function (data) {
+            console.log(data);
+          }
         })
-          .then(function (res) {
-            console.log(res);
-          });
+
+        return false;
+//        axios({
+//          method: 'post',
+//          url: '/proxy/fullStack/uploadFiles',
+//          data: {
+//            nickname: this.nickname,
+//            file: this.file
+//          },
+//        })
+//          .then(function (res) {
+//            console.log(res);
+//          });
       },
       getFile(e) {
         console.log(e.target);

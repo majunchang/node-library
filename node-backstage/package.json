@@ -23,10 +23,10 @@
     "formidable": "^1.1.1",
     "jquery": "^3.2.1",
     "mongodb": "^2.2.31",
-    "mongoose": "^4.12.1",
+    "mongoose": "^4.13.7",
     "mpromise": "^0.5.5",
-    "nodemailer": "^4.4.0",
-    "nodemon": "^1.12.1",
+    "nodemailer": "^4.4.1",
+    "nodemon": "^1.12.6",
     "q": "^1.5.0"
   },
   "devDependencies": {
