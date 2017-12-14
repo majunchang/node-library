@@ -22,10 +22,14 @@ input.personal-nickname {
 .personal-nickname:focus {
   border-color: #549df8;
 }
-
+.avator{
+  border-style: none;
+  /* display: none; */
+  width: 180px;
+  height: 320px;
+}
 .personal-formSubmit {
-  margin-top: 35px;
-  width: 200px;
+  width: 100px;
   height: 36px;
   background: #28c0f7;
   outline: none;
@@ -33,7 +37,7 @@ input.personal-nickname {
   border-radius: 4px;
   cursor: pointer;
   border: none;
-  margin-left: 68px;
+  margin-left: 107px;
 }
 
 .personal-single {
@@ -41,14 +45,14 @@ input.personal-nickname {
 }
 .singleFile{
   position: relative;
-  height: 314px;
+  height: 398px;
 }
 
 input.personal-file {
   opacity: 0;
   display: inline-block;
   width: 300px;
-  height: 300px;
+  height: 320px;
   border: 1px solid #ccc;
   position: absolute;
   top: 10px;
@@ -58,7 +62,7 @@ input.personal-file {
 .upload-box {
   display: inline-block;
   width: 300px;
-  height: 300px;
+  height: 320px;
   border: 1px solid #ccc;
   position: absolute;
   top: 10px;
@@ -68,5 +72,8 @@ input.personal-file {
 
 .upload-box-center{
   display: inline-block;
+
+}
+.elseAvator{
   margin-top: 120px;
 }

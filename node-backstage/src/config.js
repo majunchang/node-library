@@ -3,6 +3,6 @@ import {join} from 'path'
 
 export default {
     public_path: join(__dirname, '../public'),
-    uploadDir: join(__dirname, '../public/uploads')
+    uploadDir: join(__dirname, '../../vue-frontpage/static/images')
 }
 

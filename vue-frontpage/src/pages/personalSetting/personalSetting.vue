@@ -12,14 +12,20 @@
                  @change='getFile'>
           <div class="upload-box">
             <div class="upload-box-center">
-              <img src="../../../static/images/upload.png" alt="" class='upload-img'>
-              <p>点击此处上传头像</p>
+              <div class="elseAvator" v-if='!avatorShow'>
+                <img src="../../../static/images/upload.png" alt="" class='upload-img'>
+                <p>点击此处上传头像</p>
+              </div>
+              <img v-else='avatorShow' class='avator' id='avator'
+                   src="/static/images/upload_baa36b9fd871af573378ed55ad51c3f4.png"
+                   alt="">
             </div>
           </div>
         </div>
         <input type="submit" value='上传' class='personal-formSubmit' @click.prevent='uploadAvater'>
 
       </form>
+
     </div>
   </div>
 </template>
@@ -33,6 +39,7 @@
     data() {
       return {
         nickname: this.$store.state.user,
+        avatorShow: false
       }
     },
     created() {
@@ -51,8 +58,12 @@
           // 当提交一个 FormData 对象的时候，记得要将 contentType 设置为 false
           // 否则 jQuery 会默认把 Content-Type 设置为 application/x-www-form-urlencoded; charset=UTF-8
           contentType: false,  // tell jQuery not to set contentType
-          success: function (data) {
+          success: (data) => {
             console.log(data);
+            if (data.code === 0) {
+              this.avatorShow = true;
+              $('#avator').attr('src', data.imageSrc)
+            }
           }
         })
 
