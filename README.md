@@ -1,4 +1,4 @@
-# 基于数据分析的图书管理系统(全栈)
+# 基于数据分析的图书管理系统(原创-全栈项目)
 基于**Vue全家桶(2.x)+NodeJs+Express+MongoDB+ES6+iview**制作的图书管理系统，通过该系统来学习当下最流行的大框架和技术，采用前后端分类的开发方式，Vue全家桶（2.x）全部涉及。
 
 ##  [图书馆项目地址-https://github.com/majunchang/node-library](https://github.com/majunchang/node-library)
