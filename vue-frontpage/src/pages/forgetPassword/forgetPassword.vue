@@ -219,7 +219,6 @@
         if (this.userNameError && this.mailBoxError) {
           return
         }
-        //  将用户输入的用户名和邮箱 发送给后台
         this.SendIng = true
         this.bgc = 'gray'
         axios({
@@ -232,6 +231,8 @@
         })
           .then((res) => {
             if (res.data.code === 0) {
+              //  将用户输入的用户名和邮箱 发送给后台
+
               this.$SwalModal.MaModal('邮件已经发送成功，请注意查收')
               var time = 60
               var timer = setInterval(() => {
@@ -247,6 +248,8 @@
               this.runPage.next();
             }
             else {
+              this.SendIng = false
+              this.bgc = '#00a2de'
               this.$SwalModal.MaModal('邮件发送失败', 'error')
             }
           })
