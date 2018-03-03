@@ -490,27 +490,27 @@
                 <!--</li>-->
               </ul>
             </li>
-            <li>
-              <a href="javascript:;">
-                <i class="icon-settings"></i>
-                <span class="title">查询功能</span>
-                <span class="arrow "></span>
-              </a>
-              <ul class="sub-menu">
-                <li>
-                  <a href="javascript:;">
-                    全局模糊查询</a>
-                </li>
-                <li>
-                  <a href="javascript:;">
-                    按照书名精准查询</a>
-                </li>
-                <li>
-                  <a href="javascript:;">
-                    按照作者精准查询</a>
-                </li>
-              </ul>
-            </li>
+            <!--<li>-->
+              <!--<a href="javascript:;">-->
+                <!--<i class="icon-settings"></i>-->
+                <!--<span class="title">查询功能</span>-->
+                <!--<span class="arrow "></span>-->
+              <!--</a>-->
+              <!--<ul class="sub-menu">-->
+                <!--<li>-->
+                  <!--<a href="javascript:;">-->
+                    <!--全局模糊查询</a>-->
+                <!--</li>-->
+                <!--<li>-->
+                  <!--<a href="javascript:;">-->
+                    <!--按照书名精准查询</a>-->
+                <!--</li>-->
+                <!--<li>-->
+                  <!--<a href="javascript:;">-->
+                    <!--按照作者精准查询</a>-->
+                <!--</li>-->
+              <!--</ul>-->
+            <!--</li>-->
             <li>
               <a href="javascript:;">
                 <i class="icon-bar-chart"></i>
@@ -521,10 +521,6 @@
                 <li @click='goCurrnetHot'>
                   <a href="javascript:;">
                     当前热门书籍</a>
-                </li>
-                <li>
-                  <a href="javascript:;">
-                    图书总览</a>
                 </li>
               </ul>
             </li>
