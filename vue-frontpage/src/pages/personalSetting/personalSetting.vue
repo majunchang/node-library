@@ -68,17 +68,6 @@
         })
 
         return false;
-//        axios({
-//          method: 'post',
-//          url: '/proxy/fullStack/uploadFiles',
-//          data: {
-//            nickname: this.nickname,
-//            file: this.file
-//          },
-//        })
-//          .then(function (res) {
-//            console.log(res);
-//          });
       },
       getFile(e) {
         console.log(e.target);

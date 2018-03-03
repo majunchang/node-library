@@ -122,15 +122,18 @@ export function register(req, res, next) {
 
 export function login(req, res, next) {
     var name = JSON.parse(req.body).name;
+    var password = JSON.parse(req.body).password;
     user
         .findOne({
             name: name
         }).then(result => {
         if (result) {
-            return res.json({
-                code: 0,
-                message: '登录成功'
-            });
+            if(result.password == password.trim()){
+                return res.json({
+                    code: 0,
+                    message: '登录成功'
+                });
+            }
         }
         // 如果没有找到
         return res.json({
@@ -170,7 +173,9 @@ export function SendEmail(req, res, next) {
             })
             return
         }
-        if (user.mailBox != mailBox.trim()) {
+        console.log(user.mail);
+        console.log(mailBox.trim());
+        if (user.mail != mailBox.trim()) {
             res.json({
                 code: 1,
                 message: '用户注册邮箱有误,不能核实使用人身份！'

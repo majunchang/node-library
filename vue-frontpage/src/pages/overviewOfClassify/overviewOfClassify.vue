@@ -17,8 +17,8 @@
     data() {
       return {
         styles: {
-          width: 1000,
-          height: 800
+          width: 800,
+          height: 600
         },
         options: {}
       }
