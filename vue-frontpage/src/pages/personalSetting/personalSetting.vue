@@ -31,49 +31,45 @@
 </template>
 
 <script>
-  import axios from 'axios';
+  import axios from 'axios'
 
-  export default {
+export default {
     props: {},
     components: {},
-    data() {
+    data () {
       return {
         nickname: this.$store.state.user,
         avatorShow: false
       }
     },
-    created() {
+    created () {
 
     },
     computed: {},
     methods: {
-      uploadAvater() {
+      uploadAvater () {
         $.ajax({
           url: '/proxy/fullStack/uploadFiles',
           type: 'post',
           data: new FormData($('.form')[0]),
           // 当你的 data 选项被提交为一个 FormData 对象的时候，一定要将 processData 配置为 false
           // 否则 jQuery 的异步提交不生效
-          processData: false,  // tell jQuery not to process the data
+          processData: false, // tell jQuery not to process the data
           // 当提交一个 FormData 对象的时候，记得要将 contentType 设置为 false
           // 否则 jQuery 会默认把 Content-Type 设置为 application/x-www-form-urlencoded; charset=UTF-8
-          contentType: false,  // tell jQuery not to set contentType
+          contentType: false, // tell jQuery not to set contentType
           success: (data) => {
-            console.log(data);
             if (data.code === 0) {
-              this.avatorShow = true;
+              this.avatorShow = true
               $('#avator').attr('src', data.imageSrc)
             }
           }
         })
 
-        return false;
+        return false
       },
-      getFile(e) {
-        console.log(e.target);
-        console.log(e.target.files);
-        console.log(e.target.files[0]);
-        this.file = e.target.files[0];
+      getFile (e) {
+        this.file = e.target.files[0]
       }
     }
   }

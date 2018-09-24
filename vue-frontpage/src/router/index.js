@@ -1,14 +1,12 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
-
 // 引入登录注册组件
 import login from '../pages/login/login.vue'
 import register from '../pages/register/register'
 import index from '../pages/index/index.vue'
 // 引入忘记密码 组件
 import forgetPassWord from '../pages/forgetPassword/forgetPassword.vue'
-
 
 // 引入添加书籍的页面
 import dashboard from '../pages/dashboard/dashboard.vue'
@@ -30,7 +28,6 @@ import currentHot from '../pages/currentHot/currentHot.vue'
 import personnalSetting from '../pages/personalSetting/personalSetting.vue'
 
 // 引入播放音乐 舒缓一刻的页面
-
 
 Vue.use(Router)
 
@@ -107,11 +104,10 @@ var router = new Router({
           component: personnalSetting
         }
       ]
-    },
+    }
 
   ]
 })
-
 
 // router.beforeEach((to, from, next) => {
 //   var username = Vue.prototype.$routerStore.state.user.name;
@@ -126,9 +122,6 @@ var router = new Router({
 //       })
 //     }
 //   }
-//   console.log(Vue.prototype.$routerStore);
-//   console.log(router);
-//
 // })
 
-export default router;
+export default router

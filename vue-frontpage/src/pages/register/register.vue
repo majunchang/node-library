@@ -42,13 +42,13 @@
 </template>
 
 <script>
-  import axios from 'axios';
-  import {mapMutations} from 'vuex'
+  import axios from 'axios'
+import {mapMutations} from 'vuex'
 
   export default {
     props: {},
     components: {},
-    data() {
+    data () {
       return {
         newUserName: '',
         newPassword: '',
@@ -62,44 +62,44 @@
         standardCheckCode: ''
       }
     },
-    created() {
+    created () {
       this.register = true
     },
-    mounted() {
+    mounted () {
       this.validate()
     },
     computed: {},
-    destroyed() {
-      this.register = false;
-    },
+    destroyed () {
+      this.register = false
+  },
     methods: {
       ...mapMutations({
         'setUser': 'SET_USER'
       }),
-      validate() {
+      validate () {
         $().ready(function () {
-          $("#registerForm").validate({
+          $('#registerForm').validate({
             debug: true
-          });
+          })
           $.validator.setDefaults({
             submitHandler: function () {
 
             }
-          });
+          })
         })
       },
-      validataEmail() {
-        var mailBox = this.newUserEmail;
-        var reg = /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/;
+      validataEmail () {
+        var mailBox = this.newUserEmail
+        var reg = /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/
 
-        this.mailBoxError = '';
+        this.mailBoxError = ''
         if (mailBox.trim() === '') {
-          this.mailBoxError = '邮箱输入不能为空';
+          this.mailBoxError = '邮箱输入不能为空'
         } else if (!reg.test(mailBox)) {
-          this.mailBoxError = '请输入正确的邮箱地址';
+          this.mailBoxError = '请输入正确的邮箱地址'
         }
       },
-      sendRegisterEmail() {
+      sendRegisterEmail () {
         // 用户名和密码不能为空
         if (!this.newUserName || !this.newPassword) {
           this.$SwalModal.MaModal('输入有误，请检查后重新输入', 'warning')
@@ -118,41 +118,36 @@
             userName: this.newUserName
           }
         }).then((data) => {
-          console.log(data);
           if (data.data.code === 0) {
-            this.SendIng = true;
+            this.SendIng = true
             this.standardCheckCode = data.data.checkCode
             this.bgc = 'gray'
             this.whetherShowRegisterBtn = true
             this.$SwalModal.MaModal('邮件发送成功，请前往注册邮箱进行查看', 'success')
             //  然后发送邮件的注册按钮 变成灰色 不可点击 并且有一个计时效果
-            var time = 60;
+            var time = 60
             var timer = setInterval(() => {
-              time--;
+              time--
               this.mailLabel = `${time}秒后重新发送`
               if (time === 0) {
-                this.SendIng = false;
+                this.SendIng = false
                 this.bgc = '#00a2de'
-                this.mailLabel = '发送注册邮件';
+                this.mailLabel = '发送注册邮件'
                 clearInterval(timer)
               }
             }, 1000)
-          }
-          else {
+          } else {
             this.$SwalModal.MaModal('邮件发送失败！', 'error')
           }
         })
       },
-      goLogin() {
+      goLogin () {
         this.$router.push({
           path: '/login',
           name: 'login'
         })
       },
-      registerNewUser() {
-//        console.log($('.registerUserName'));
-//        console.log(this.newPassword);
-//        console.log(this.newUserName);
+      registerNewUser () {
         // 用户名和密码不能为空
         if (!this.newUserName || !this.newPassword || !this.registerCheckCode) {
           this.$SwalModal.MaModal('输入有误，请检查后重新输入', 'warning')
@@ -184,7 +179,6 @@
               name: 'login'
             })
           }
-          console.log(res.data);
         })
       }
     }

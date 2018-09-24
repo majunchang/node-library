@@ -3,7 +3,6 @@ import express from 'express'
 const bodyParser = require('body-parser')
 const app = express()
 
-
 // body-parser 专门用来解析表单 post 请求体
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
@@ -37,7 +36,6 @@ router.get('/', (req, res, next) => {
         err_code: 0,
         result: contacts
       })
-
     })
 })
 
@@ -98,7 +96,6 @@ router.delete('/:id', (req, res, next) => {
       })
     })
 })
-
 
 app.use('/contacts', router)
 

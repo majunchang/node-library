@@ -14,7 +14,7 @@
     components: {
       highChartsComponent
     },
-    data() {
+    data () {
       return {
         styles: {
           width: 800,
@@ -23,18 +23,18 @@
         options: {}
       }
     },
-    created() {
+    created () {
       this.initOptions()
     },
     computed: {},
     methods: {
-      initOptions() {
+      initOptions () {
         axios({
           method: 'get',
           url: '/proxy/fullStack/overviewOfClassify'
         }).then((res) => {
           if (res.data.code === 0) {
-            var arr = res.data.result;
+            var arr = res.data.result
             // 在这里对arr 进行类别去重
             var newArr = [
               {
@@ -47,28 +47,26 @@
                 count: 1,
                 category: arr[i].category
               }
-              var flag = false;
+              var flag = false
               for (var k = 0; k < newArr.length; k++) {
                 if (newArr[k].category.indexOf(obj.category) != -1) {
-                  newArr[k].count++;
+                  newArr[k].count++
                   flag = true
-                  break;
+                  break
                 }
               }
               if (!flag) {
-                newArr.push(obj);
+                newArr.push(obj)
               }
             }
             // 在这里得到newArr
-            newArr.shift();
-            var nameArr = [];
-            var valueArr = [];
+            newArr.shift()
+            var nameArr = []
+            var valueArr = []
             newArr.forEach((item, index) => {
-              nameArr.push(item.category);
+              nameArr.push(item.category)
               valueArr.push(item.count)
             })
-            console.log(nameArr);
-            console.log(valueArr);
             this.options = {
               chart: {
                 renderTo: 'highcharts-container',
@@ -99,8 +97,8 @@
                 name: '书籍',
                 data: valueArr
               }]
-            };
-            this.$refs.highCharts.initChart(this.options);
+            }
+            this.$refs.highCharts.initChart(this.options)
           }
         })
       }
