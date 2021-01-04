@@ -14,7 +14,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "axios": "^0.16.2",
+    "axios": "^0.21.1",
     "babel-cli": "^6.26.0",
     "bootstrap": "^3.3.7",
     "cookie-parser": "^1.4.3",
