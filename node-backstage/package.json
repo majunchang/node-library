@@ -23,7 +23,7 @@
     "formidable": "^1.1.1",
     "jquery": "^3.2.1",
     "mongodb": "^2.2.31",
-    "mongoose": "^4.13.7",
+    "mongoose": "^4.13.21",
     "mpromise": "^0.5.5",
     "nodemailer": "^4.4.1",
     "nodemon": "^1.12.6",
